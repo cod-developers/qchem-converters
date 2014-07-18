@@ -12,6 +12,7 @@ BASENAME="`basename $0 .com`"
 
 OUTPUT_INP=./outputs/${BASENAME}.inp
 OUTPUT_DAT=./outputs/${BASENAME}.out
+OUTPUT_ARC=./outputs/${BASENAME}.arc
 
 #END DEPEND--------------------------------------------------------------------
 
@@ -47,10 +48,11 @@ cp ${OUTPUT_INP} ${TMP_DIR}/${BASENAME}.dat
     run_mopac7 ${BASENAME}
 )
 
+cat ${TMP_DIR}/${BASENAME}.log
+
 tree ${TMP_DIR}
 
 mv ${TMP_DIR}/${BASENAME}.OUT ${OUTPUT_DAT}
-
-cat ${TMP_DIR}/${BASENAME}.log
+mv ${TMP_DIR}/${BASENAME}.arc ${OUTPUT_ARC}
 
 rm -rf "${TMP_DIR}"

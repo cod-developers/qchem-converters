@@ -1,14 +1,3 @@
-+ cat
-+ set -x
-+ cp ./outputs/ethylene.inp ./tmp-ethylene-8564/ethylene.dat
-+ cd ./tmp-ethylene-8564
-+ run_mopac7 ethylene
-starting mopac7 job ethylene
-mopac7 job ethylene finished
-+ cat ./tmp-ethylene-8564/ethylene.log
- UHF PULAY MINDO3 VECTORS DENSITY LOCAL T=300
-  EXAMPLE OF DATA FOR MOPAC
-    MINDO/3 UHF CLOSED-SHELL D2D ETHYLENE
 
 
                      SUMMARY OF MINDO/3 CALCULATION
@@ -52,14 +41,3 @@ mopac7 job ethylene finished
   H    1.0983260  1    123.572063  1     90.000000  0    1    2    3      0.0230
   H    1.0983260  1    123.572063  1    -90.000000  0    1    2    3      0.0230
 
-+ tree ./tmp-ethylene-8564
-./tmp-ethylene-8564
-├── ethylene.arc
-├── ethylene.dat
-├── ethylene.log
-└── ethylene.OUT
-
-0 directories, 4 files
-+ mv ./tmp-ethylene-8564/ethylene.OUT ./outputs/ethylene.out
-+ mv ./tmp-ethylene-8564/ethylene.arc ./outputs/ethylene.arc
-+ rm -rf ./tmp-ethylene-8564
