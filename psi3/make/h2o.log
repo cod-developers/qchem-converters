@@ -1,0 +1,35 @@
++ cat
++ set -x
++ cp ./outputs/h2o.inp ./tmp-h2o-19756/input.dat
++ cd ./tmp-h2o-19756
++ mkdir tmp
++ psi3
+Removing files ./tmp/h2o
+-rw-r--r-- 1 saulius saulius 964 2014-07-18 15:30 ./tmp/h2o.35
+
+
+ The PSI3 Execution Driver 
+
+PSI3 will perform a RHF SCF energy computation.
+
+The following programs will be executed:
+
+ input
+ cints
+ cscf
+ psiclean
+
+input
+cints
+cscf
+psiclean
++ tree ./tmp-h2o-19756
+./tmp-h2o-19756
+├── h2o.32
+├── input.dat
+├── output.dat
+└── tmp
+
+1 directory, 3 files
++ mv ./tmp-h2o-19756/output.dat ./outputs/h2o.out
++ rm -rf ./tmp-h2o-19756

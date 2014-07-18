@@ -1,0 +1,36 @@
+% file input.dat
+default: (
+    label = "water STO HF energy point"
+    memory = (8.0 Mbytes)
+    wfn = scf
+    reference = rhf
+
+    files: (
+        default: (
+            name = "h2o"
+            nvolume = 1
+            volume1 = "./tmp/"
+        )
+        file30: (
+            nvolume = 1
+            volume1 = "./"
+        )
+    )
+)
+
+psi: (
+    %% check = true
+)
+
+input: (
+    % note that all atoms are specified now,
+    % not only the symmetry unique portion.
+    basis = sto-3g
+    units = angstrom
+    zmat = (
+        (o)
+        (h 1 0.9600)
+        (h 1 0.9600 2 104.5)
+    )
+)
+% end file input.dat

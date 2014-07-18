@@ -1,0 +1,36 @@
+#Diamond PAW  : convergence with respect to ecut
+
+ndtset 8
+ecut: 5.0 ecut+ 5.0
+pawecutdg 40.0 
+
+#Input parameters common to all datasets
+prtwf  1
+getwfk -1
+prtden 0
+istwfk 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
+
+acell 3*6.7
+rprim 0.0 1/2 1/2
+      1/2 0.0 1/2
+      1/2 1/2 0.0
+
+ntypat 1
+znucl 6
+
+natom 2
+typat 1 1
+xred
+0.0 0.0 0.0
+1/4 1/4 1/4
+
+nband 6
+
+kptopt 1
+ngkpt 5 5 5
+nstep 30
+toldfe 1.0d-7
+occopt 7
+tsmear 5.0d-3     
+# This line added when defaults were changed (v5.3) to keep the previous, old behaviour
+  iscf 14

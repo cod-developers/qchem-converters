@@ -1,0 +1,23 @@
+
+.Version 5.3.3  of ABINIT 
+.(sequential version, prepared for a x86_64_linux_pgi computer) 
+
+.Copyright (C) 1998-2007 ABINIT group . 
+ ABINIT comes with ABSOLUTELY NO WARRANTY.
+ It is free software, and you are welcome to redistribute it
+ under certain conditions (GNU General Public License,
+ see ~abinit/COPYING or http://www.gnu.org/copyleft/gpl.txt).
+
+ ABINIT is a project of the Universite Catholique de Louvain,
+ Corning Inc. and other collaborators, see ~abinit/doc/developers/contributors.txt .
+ Please read ~abinit/doc/users/acknowledgments.html for suggested
+ acknowledgments of the ABINIT effort.
+ For more information, see http://www.abinit.org .
+
+.Starting date : Fri 23 Feb 2007.
+  
+- input  file    -> /home/gonze/ABINIT/ABINITv5.3.3/abinit-release--gonze--5.3.3/tests/tutorial/Input/t32.in
+- output file    -> t32.out
+- root for input  files -> t32i
+- root for output files -> t32o
+

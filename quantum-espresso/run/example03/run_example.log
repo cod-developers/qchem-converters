@@ -1,0 +1,24 @@
+
+/home/saulius/tests/qchem/quantum-espresso/run/example03 : starting
+
+This example shows how to use pw.x to compute the equilibrium geometry
+of a simple molecule, CO, and of an Al (001) slab.
+In the latter case the relaxation is performed in two ways:
+1) using the quasi-Newton BFGS algorithm
+2) using a damped dynamics algorithm.
+
+  executables directory: /usr/bin
+  pseudo directory:      /usr/share/espresso/pseudo
+  temporary directory:   /home/saulius/tests/qchem/quantum-espresso/run/example03/tmp
+  checking that needed directories and files exist... done
+
+  running pw.x as:   /usr/bin/pw.x 
+
+  cleaning /home/saulius/tests/qchem/quantum-espresso/run/example03/tmp... done
+  running the geometry relaxation for CO... done
+  cleaning /home/saulius/tests/qchem/quantum-espresso/run/example03/tmp... done
+  running the geometry relaxation for Al (001) using BFGS... done
+  cleaning /home/saulius/tests/qchem/quantum-espresso/run/example03/tmp... done
+  running the geometry relaxation for Al (001) using damped MD... done
+
+/home/saulius/tests/qchem/quantum-espresso/run/example03: done

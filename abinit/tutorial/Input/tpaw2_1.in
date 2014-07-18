@@ -1,0 +1,41 @@
+#==============================
+# Ti fcc
+#==============================
+
+#Datasets - Ecut convergence
+  ndtset 10
+  ecut: 4. ecut+ 4.
+  getwfk -1 getocc -1
+  prtwf  1 prtden 0
+
+#PAW specific data
+  pawecutdg 50.0
+  pawxcdev 1
+
+# SC cycle control
+  nstep 50
+  iscf 13
+  toldfe 1.0d-8
+
+#Atomic cell
+  acell 3*7.8
+  xred 0 0 0
+  rprim 0.0 1/2 1/2
+        1/2 0.0 1/2
+        1/2 1/2 0.0
+  natom 1 ntypat 1 typat 1
+  znucl 22
+
+#Metallic properties
+  nband 12
+  occopt 7 tsmear 5.0d-3
+
+#K-points
+  kptopt 1
+  kptrlatt 2 0 0 0 2 0 0 0 2
+  nshiftk 4
+  shiftk
+  1/2 1/2 1/2
+  1/2 0.0 0.0
+  0.0 1/2 0.0
+  0.0 0.0 1/2

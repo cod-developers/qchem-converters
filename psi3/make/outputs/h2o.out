@@ -1,0 +1,299 @@
+******************************************************************************
+PSI3 started on koala at Fri Jul 18 15:30:20 2014
+
+    -----------------------------------------------------------------------    
+            PSI3: An Open-Source Ab Initio Electronic Structure Package 
+                                Version 3.4 Alpha
+
+    T. D. Crawford, C. D. Sherrill, E. F. Valeev, J. T. Fermann, R. A. King,
+    M. L. Leininger, S. T. Brown, C. L. Janssen, E. T. Seidl, J. P. Kenny,
+    and W. D. Allen, J. Comput. Chem. 28, 1610-1616 (2007)
+    -----------------------------------------------------------------------    
+
+PSI3 will perform a RHF SCF energy computation.
+
+The following programs will be executed:
+
+ input
+ cints
+ cscf
+ psiclean
+
+******************************************************************************
+INPUT tstart called on koala
+Fri Jul 18 15:30:20 2014
+
+                                --------------
+                                    INPUT
+                                --------------
+
+  LABEL       =	water STO HF energy point
+  SHOWNORM    =	0
+  PUREAM      =	0
+  PRINT_LVL   =	1
+
+  Parsed basis sets from /usr/share/psi/pbasis.dat
+Coordinates after reading z-matrices
+
+           1           2           3
+
+    1   0.0000000   0.0000000   0.0000000
+    2   0.0000000   0.0000000   1.8141369
+    3   1.7563524   0.0000000  -0.4542236
+
+  -Geometry before Center-of-Mass shift (a.u.):
+   Atom            X                  Y                   Z
+  ------   -----------------  -----------------  -----------------
+    O         0.000000000000     0.000000000000     0.000000000000
+    H         0.000000000000     0.000000000000     1.814136949036
+    H         1.756352406532     0.000000000000    -0.454223616655
+
+
+  -Rotational constants (cm-1) :
+    A =   27.26297  B =   14.51533  C =    9.47217
+    It is an asymmetric top.
+
+  -Geometry after Center-of-Mass shift and reorientation (a.u.):
+   Atom            X                  Y                   Z
+  ------   -----------------  -----------------  -----------------
+    O         0.000000000000    -0.124297805059     0.000000000000
+    H         1.434419170946     0.986348183490     0.000000000000
+    H        -1.434419170946     0.986348183490     0.000000000000
+
+
+  -SYMMETRY INFORMATION:
+    Computational point group is C2v 
+    Number of irr. rep.      = 4
+    Number of atoms          = 3
+    Number of unique atoms   = 2
+
+
+  -BASIS SETS:
+
+   -Basis set on unique center 1:
+      ( (S (   130.70932000     0.15432897)
+           (    23.80886100     0.53532814)
+           (     6.44360830     0.44463454) )
+        (S (     5.03315130    -0.09996723)
+           (     1.16959610     0.39951283)
+           (     0.38038900     0.70011547) )
+        (P (     5.03315130     0.15591627)
+           (     1.16959610     0.60768372)
+           (     0.38038900     0.39195739) )
+       )
+
+   -Basis set on unique center 2:
+      ( (S (     3.42525091     0.15432897)
+           (     0.62391373     0.53532814)
+           (     0.16885540     0.44463454) )
+       )
+
+
+  -BASIS SET INFORMATION:
+    Total number of shells = 5
+    Number of primitives   = 12
+    Number of AO           = 7
+    Number of SO           = 7
+
+    Irrep    Number of SO
+    -----    ------------
+      1            4
+      2            0
+      3            1
+      4            2
+
+  -Contraction Scheme:
+    Atom     All Primitives // Unique Primitives // Shells
+    ----     ---------------------------------------------
+       1      6s 3p //  6s //  2s 1p
+       2      3s //  3s //  1s
+       3      3s //  3s //  1s
+
+
+  -Unique atoms in the canonical coordinate system (a.u.):
+   Atom            X                  Y                   Z
+  ------   -----------------  -----------------  -----------------
+    O         0.000000000000     0.000000000000    -0.124297805059
+    H         0.000000000000     1.434419170946     0.986348183490
+
+
+  -Geometry in the canonical coordinate system (a.u.):
+   Atom            X                  Y                   Z
+  ------   -----------------  -----------------  -----------------
+    O         0.000000000000     0.000000000000    -0.124297805059
+    H         0.000000000000     1.434419170946     0.986348183490
+    H         0.000000000000    -1.434419170946     0.986348183490
+
+
+  -Geometry in the canonical coordinate system (Angstrom):
+   Atom            X                  Y                   Z
+  ------   -----------------  -----------------  -----------------
+    O         0.000000000000     0.000000000000    -0.065775570538
+    H         0.000000000000     0.759061990794     0.521953018295
+    H         0.000000000000    -0.759061990794     0.521953018295
+
+
+  -Geometry in the reference coordinate system (a.u.):
+   Atom            X                  Y                   Z
+  ------   -----------------  -----------------  -----------------
+    O         0.000000000000     0.000000000000    -0.124297805059
+    H         0.000000000000     1.434419170946     0.986348183490
+    H         0.000000000000    -1.434419170946     0.986348183490
+
+
+  --------------------------------------------------------------------------
+
+    Nuclear Repulsion Energy (a.u.) =       9.168193960506
+
+  -The Interatomic Distances in angstroms:
+
+           1           2           3
+
+    1   0.0000000
+    2   0.9600000   0.0000000
+    3   0.9600000   1.5181240   0.0000000
+
+    Note: To print *all* bond angles, out-of-plane
+          angles, and torsion angles set print = 3
+
+
+******************************************************************************
+INPUT tstop called on koala
+Fri Jul 18 15:30:20 2014
+
+user time   =       0.02 seconds =       0.00 minutes
+system time =       0.00 seconds =       0.00 minutes
+total time  =          0 seconds =       0.00 minutes
+******************************************************************************
+cints tstart called on koala
+Fri Jul 18 15:30:20 2014
+
+                  --------------------------------------------
+                    CINTS: An integrals program written in C
+                     Justin T. Fermann and Edward F. Valeev
+                  --------------------------------------------
+
+
+  -OPTIONS:
+    Print level                 = 1
+    Integral tolerance          = 1e-15
+    Max. memory to use          = 1000000 double words
+    Number of threads           = 1
+    LIBINT's real type length   = 64 bit
+
+  -CALCULATION CONSTANTS:
+    Label                       = water STO HF energy point
+    Number of atoms             = 3
+    Number of atomic orbitals   = 7
+    Number of symmetry orbitals = 7
+    Maximum AM in the basis     = 1
+
+  -SYMMETRY INFORMATION;
+    Computational point group        = C2v
+    Number of irreps                 = 4
+
+    Wrote 138 two-electron integrals to IWL file 33
+
+******************************************************************************
+cints tstop called on koala
+Fri Jul 18 15:30:20 2014
+
+user time   =       0.00 seconds =       0.00 minutes
+system time =       0.00 seconds =       0.00 minutes
+total time  =          0 seconds =       0.00 minutes
+******************************************************************************
+SCF tstart called on koala
+Fri Jul 18 15:30:20 2014
+
+
+             ------------------------------------------
+
+                CSCF3.0: An SCF program written in C
+
+              Written by too many people to mention here
+
+             ------------------------------------------
+
+  I think the multiplicity is 1.
+  If this is wrong, please specify the MULTP keyword
+
+  label        = water STO HF energy point
+  wfn          = SCF
+  reference    = RHF
+  multiplicity = 1
+  charge       = 0
+  direct       = false
+  dertype      = NONE
+  convergence  = 7
+  maxiter      = 100
+  guess        = AUTO
+
+  nuclear repulsion energy        9.1681939605059
+  first run, so defaulting to core-hamiltonian guess
+
+  level shift                      = 0.100000
+
+  level shifting will stop after 10 cycles
+  diis scale factor                = 1.000000
+  iterations before extrapolation  = 0
+  6 error matrices will be kept
+
+  keeping integrals in 1760 bytes of core
+
+  The lowest eigenvalue of the overlap matrix was 3.440529e-01
+
+  Using core guess to determine occupations
+
+
+  Symmetry block:   A1    A2    B1    B2   
+  DOCC:              3     0     1     1   
+  SOCC:              0     0     0     0   
+
+  reading integrals in the IWL format from files 33,35,36,37
+  wrote 93 integrals to file92
+
+  iter       total energy        delta E         delta P          diiser
+    1       -73.2339329200    8.240213e+01    0.000000e+00    0.000000e+00
+    2       -74.9454531180    1.711520e+00    3.328487e-01    5.229506e-01
+    3       -74.9624352916    1.698217e-02    3.044445e-02    7.060193e-02
+    4       -74.9631915983    7.563067e-04    6.638676e-03    1.696220e-02
+    5       -74.9633145942    1.229959e-04    3.655160e-03    5.334376e-03
+    6       -74.9633190409    4.446632e-06    7.048674e-04    9.620825e-04
+    7       -74.9633190436    2.697547e-09    1.010696e-05    3.569837e-05
+    8       -74.9633190436    6.394885e-13    2.515816e-07    4.598161e-07
+    9       -74.9633190436    0.000000e+00    7.421668e-09    1.546282e-08
+
+Orbital energies (a.u.):
+
+  Doubly occupied orbitals
+   1A1    -20.242099     2A1     -1.266998     1B2     -0.616423  
+   3A1     -0.452703     1B1     -0.391074  
+
+
+  Unoccupied orbitals
+   4A1      0.602918     2B2      0.739017  
+
+
+      * SCF total energy   =     -74.963319043557
+        kinetic energy     =      74.582338044884
+        nuc. attr. energy  =    -196.906769491114
+        elec. rep. energy  =      47.361112402672
+        potential energy   =    -149.545657088442
+        virial theorem     =       1.994917767736
+        wavefunction norm  =       1.000000000000
+******************************************************************************
+SCF tstop called on koala
+Fri Jul 18 15:30:20 2014
+
+user time   =       0.00 seconds =       0.00 minutes
+system time =       0.00 seconds =       0.00 minutes
+total time  =          0 seconds =       0.00 minutes
+
+                          --------------------------
+                          PSI3 Computation Completed
+                          --------------------------
+
+PSI3 stopped on koala at Fri Jul 18 15:30:20 2014
+
+Total PSI3 wall time          0 seconds =       0.00 minutes
+******************************************************************************
