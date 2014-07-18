@@ -120,6 +120,8 @@ cp ${OUTPUT_XML} ${TMP_DIR}
     pw.x < $(basename ${OUTPUT_XML}) | tee $(basename ${OUTPUT_DAT})
 )
 
+tree ${TMP_DIR}
+
 mv ${TMP_DIR}/$(basename ${OUTPUT_DAT}) ${OUTPUT_DAT}
 
 rm -rf "${TMP_DIR}"
