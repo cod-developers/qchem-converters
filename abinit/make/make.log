@@ -1,15 +1,16 @@
-mkcomdepend h2o.com > .h2o.d
 ./h2o.com 2>&1 | tee h2o.log
 + basename ./inputs/h2o.inp
 + basename ./outputs/h2o.out
 + basename ./inputs/8o.pspnc
 + basename ./inputs/1h.pspnc
 + cat
-+ cp ./inputs/1h.pspnc ./tmp-h2o-2508
-+ cp ./inputs/8o.pspnc ./tmp-h2o-2508
-+ cp ./inputs/h2o.inp ./tmp-h2o-2508
-+ cd ./tmp-h2o-2508
-+ basename ./tmp-h2o-2508/h2o.files
++ cp ./inputs/1h.pspnc ./tmp-h2o-3331
++ cp ./inputs/8o.pspnc ./tmp-h2o-3331
++ cp ./inputs/h2o.inp ./tmp-h2o-3331
++ basename ./inputs/h2o.inp
++ cat
++ cd ./tmp-h2o-3331
++ basename ./tmp-h2o-3331/h2o.files
 + abinis
   ABINIT 
   
@@ -46,7 +47,7 @@ h2o
 - root for input  files -> h2oi
 - root for output files -> h2oo
 
- instrng :    32 lines of input have been read
+ instrng :    35 lines of input have been read
 
  iofn2 : Please give name of formatted atomic psp file
  iofn2 : for atom type   1 , psp file is 8o.pspnc
@@ -137,6 +138,7 @@ P    mkmem         1
              -1  0  0   0 -1  0   0  0  1       0  1  0   1  0  0   0  0 -1
      tnons    0.0000000  0.0000000  0.0000000     0.0000000  0.0000000  0.5000000
               0.0000000  0.0000000  0.5000000     0.0000000  0.0000000  0.0000000
+    toldfe    1.00000000E-06 Hartree
      typat    1  1  1  1  2  2  2  2  2  2  2  2
     xangst    5.2025999312E+00 -1.3274999824E+00  9.8967998691E-01
               2.5973999656E+00 -1.3274999824E+00  1.7903199763E+00
@@ -266,11 +268,15 @@ P    mkmem         1
 
 ================================================================================
 
- scprqt : ERROR -
-  For the SCF case, one and only one of the input tolerance criteria
-  tolwfr, toldff, tolrff, toldfe or tolvrs must differ from zero, while they are
-  tolwfr=  0.000000E+00, toldff=  0.000000E+00, tolrff=  0.000000E+00, toldfe=  0.000000E+00
-  and tolvrs=  0.000000E+00 .
-  Action : change your input file and resubmit the job.
+     iter   Etot(hartree)      deltaE(h)  residm     vres2    diffor    maxfor
 
- leave_new : decision taken to exit ...
+ getcut: wavevector=  0.0000  0.0000  0.0000  ngfft=   2   2   2
+         ecut(hartree)=     -1.000   => boxcut(ratio)=       NaN
+
+ ewald : nr and ng are    4 and   15
+
+ ITER STEP NUMBER     1
+ vtorho : nnsclo_now=  2, note that nnsclo,dbl_nnsclo,istep=  0 0  1
+
+ Non-SCF iterations; k pt #    1  k=  0.00000  0.00000  0.00000  band residuals:
+Floating point exception (core dumped)

@@ -41,6 +41,12 @@ cp ${INPUT_PSP1} ${TMP_DIR}
 cp ${INPUT_PSP2} ${TMP_DIR}
 cp ${INPUT_INP} ${TMP_DIR}
 
+cat >> ${TMP_DIR}/$(basename ${INPUT_INP}) <<EOF
+toldfe 1.0d-6     # Will stop when, twice in a row, the difference 
+                  # between two consecutive evaluations of total energy 
+                  # differ by less than toldfe (in Hartree) 
+EOF
+
 (
     cd ${TMP_DIR}
     abinis < $(basename ${TMP_FILES})
