@@ -1,0 +1,274 @@
++ basename ./inputs/h2o.inp
++ basename ./outputs/h2o.out
++ basename ./inputs/8o.pspnc
++ basename ./inputs/1h.pspnc
++ cat
++ cp ./inputs/1h.pspnc ./tmp-h2o-2508
++ cp ./inputs/8o.pspnc ./tmp-h2o-2508
++ cp ./inputs/h2o.inp ./tmp-h2o-2508
++ cd ./tmp-h2o-2508
++ basename ./tmp-h2o-2508/h2o.files
++ abinis
+  ABINIT 
+  
+  Give name for formatted input file: 
+h2o.inp
+  Give name for formatted output file:
+h2o.out
+  Give root name for generic input files:
+h2oi
+  Give root name for generic output files:
+h2oo
+  Give root name for generic temporary files:
+h2o
+
+.Version 5.3.4  of ABINIT 
+.(sequential version, prepared for a i686_linux_UNKNOWN computer) 
+
+.Copyright (C) 1998-2007 ABINIT group . 
+ ABINIT comes with ABSOLUTELY NO WARRANTY.
+ It is free software, and you are welcome to redistribute it
+ under certain conditions (GNU General Public License,
+ see ~abinit/COPYING or http://www.gnu.org/copyleft/gpl.txt).
+
+ ABINIT is a project of the Universite Catholique de Louvain,
+ Corning Inc. and other collaborators, see ~abinit/doc/developers/contributors.txt .
+ Please read ~abinit/doc/users/acknowledgments.html for suggested
+ acknowledgments of the ABINIT effort.
+ For more information, see http://www.abinit.org .
+
+.Starting date : Sun 20 Jul 2014.
+  
+- input  file    -> h2o.inp
+- output file    -> h2o.out
+- root for input  files -> h2oi
+- root for output files -> h2oo
+
+ instrng :    32 lines of input have been read
+
+ iofn2 : Please give name of formatted atomic psp file
+ iofn2 : for atom type   1 , psp file is 8o.pspnc
+  read the values zionpsp=  6.0 , pspcod=   1 , lmax=   1
+
+ iofn2 : Please give name of formatted atomic psp file
+ iofn2 : for atom type   2 , psp file is 1h.pspnc
+  read the values zionpsp=  1.0 , pspcod=   1 , lmax=   0
+
+ iofn2 : deduce mpsang  =   2, n1xccc  =2501.
+
+ invars1m : enter jdtset=     0
+ ingeo : takes atomic coordinates from input array xred
+ symspgr : the symmetry operation no.   1 is the identity
+ symaxes : the symmetry operation no.   2 is a 2-axis 
+ symaxes : the symmetry operation no.   3 is a 2_1-axis 
+ symaxes : the symmetry operation no.   4 is a 2-axis 
+ symspgr : the symmetry operation no.   5 is a pure translation 
+ symaxes : the symmetry operation no.   6 is a 2_1-axis 
+ symaxes : the symmetry operation no.   7 is a 2_1-axis 
+ symaxes : the symmetry operation no.   8 is a 2_1-axis 
+ symspgr : spgroup=  20  C2 2 2_1   (=D2^5)
+ inkpts: Sum of    1 k point weights is    1.000000
+
+ inkpts : istwfk preprocessed, gives following first values (max. 6): 2
+ invars1: mkmem  undefined in the input file. Use default mkmem  = nkpt
+ invars1: With nkpt_me=    1 and mkmem  =     1, ground state wf handled in core.
+ invars1: mkqmem undefined in the input file. Use default mkqmem = nkpt
+ invars1: With nkpt_me=    1 and mkqmem =     1, ground state wf handled in core.
+ invars1: mk1mem undefined in the input file. Use default mk1mem = nkpt
+ invars1: With nkpt_me=    1 and mk1mem =     1, ground state wf handled in core.
+
+ Symmetries : space group C2 2 2_1 (# 20); Bravais oC (1-face-center ortho.)
+ invars2: take the default value of fband=  1.25000000E-01
+ inkpts: Sum of    1 k point weights is    1.000000
+
+ inkpts : istwfk preprocessed, gives following first values (max. 6): 2
+ chkneu : initialized the occupation numbers for occopt=    1
+    spin-unpolarized case :
+  2.00  2.00  2.00  2.00  2.00  2.00  2.00  2.00  2.00  2.00  2.00  2.00
+  2.00  2.00  2.00  2.00  0.00  0.00
+ For input ecut= -1.000000E+00 best grid ngfft=       2       2       2
+       max ecut=  4.470154E-02
+ getng: value of mgfft=       2 and nfft=           8
+ getng: values of ngfft(4),ngfft(5),ngfft(6)       3       3       2
+ getmpw: optimal value of mpw=       0
+
+ getdim_nloc : deduce lmnmax  =   1, lnmax  =   1,
+                      lmnmaxso=   1, lnmaxso=   1.
+ memory : analysis of memory needs
+================================================================================
+ Values of the parameters that define the memory need of the present run
+   intxc =         0  ionmov =         0    iscf =         7     ixc =         1
+  lmnmax =         1   lnmax =         1   mband =        18  mffmem =         1
+P  mgfft =         2   mkmem =         1 mpssoang=         2     mpw =         0
+  mqgrid =      3001   natom =        12    nfft =         8    nkpt =         1
+  nloalg =         4  nspden =         1 nspinor =         1  nsppol =         1
+    nsym =         4  n1xccc =      2501  ntypat =         2  occopt =         1
+================================================================================
+P This job should need less than                       0.866 Mbytes of memory.
+  Rough estimation (10% accuracy) of disk space for files :
+  WF disk file :      0.002 Mbytes ; DEN or POT disk file :      0.002 Mbytes.
+================================================================================
+
+ Biggest array : f_fftgr(disk), with      0.0030 MBytes.
+ memana : allocated an array of      0.003 Mbytes, for testing purposes.
+ memana : allocated       0.866 Mbytes, for testing purposes.
+ The job will continue.
+ -outvars: echo values of preprocessed input variables --------
+     acell    1.4739863580E+01  1.4739863580E+01  1.4739863580E+01 Bohr
+       amu    1.59994000E+01  1.00794000E+00
+    istwfk      2
+P    mkmem         1
+     natom        12
+     nband        18
+     ngfft         2       2       2
+      nkpt         1
+      nsym         4
+    ntypat         2
+       occ    2.000000  2.000000  2.000000  2.000000  2.000000  2.000000
+              2.000000  2.000000  2.000000  2.000000  2.000000  2.000000
+              2.000000  2.000000  2.000000  2.000000  0.000000  0.000000
+     rprim    5.0000000000E-01 -2.8846153846E-01  0.0000000000E+00
+              5.0000000000E-01  2.8846153846E-01  0.0000000000E+00
+              0.0000000000E+00  0.0000000000E+00  7.1282051282E-01
+   spgroup        20
+    symrel    1  0  0   0  1  0   0  0  1       0 -1  0  -1  0  0   0  0 -1
+             -1  0  0   0 -1  0   0  0  1       0  1  0   1  0  0   0  0 -1
+     tnons    0.0000000  0.0000000  0.0000000     0.0000000  0.0000000  0.5000000
+              0.0000000  0.0000000  0.5000000     0.0000000  0.0000000  0.0000000
+     typat    1  1  1  1  2  2  2  2  2  2  2  2
+    xangst    5.2025999312E+00 -1.3274999824E+00  9.8967998691E-01
+              2.5973999656E+00 -1.3274999824E+00  1.7903199763E+00
+              2.5973999656E+00  1.3274999824E+00  3.7696799501E+00
+              5.2025999312E+00  1.3274999824E+00  4.5703199396E+00
+              1.3025999828E+00  0.0000000000E+00  0.0000000000E+00
+              6.4973999141E+00  0.0000000000E+00  2.7799999632E+00
+              3.8999999484E+00 -1.1249999851E+00  1.3899999816E+00
+              3.8999999484E+00  1.1249999851E+00  4.1699999448E+00
+              5.8499999226E+00 -2.0249999732E-01  1.3899999816E+00
+              1.9499999742E+00 -2.0249999732E-01  1.3899999816E+00
+              1.9499999742E+00  2.0249999732E-01  4.1699999448E+00
+              5.8499999226E+00  2.0249999732E-01  4.1699999448E+00
+     xcart    9.8314890079E+00 -2.5086113977E+00  1.8702241266E+00
+              4.9083745721E+00 -2.5086113977E+00  3.3832144314E+00
+              4.9083745721E+00  2.5086113977E+00  7.1236626846E+00
+              9.8314890079E+00  2.5086113977E+00  8.6366529894E+00
+              2.4615572179E+00  0.0000000000E+00  0.0000000000E+00
+              1.2278306362E+01  0.0000000000E+00  5.2534385580E+00
+              7.3699317900E+00 -2.1259418625E+00  2.6267192790E+00
+              7.3699317900E+00  2.1259418625E+00  7.8801578370E+00
+              1.1054897685E+01 -3.8266953525E-01  2.6267192790E+00
+              3.6849658950E+00 -3.8266953525E-01  2.6267192790E+00
+              3.6849658950E+00  3.8266953525E-01  7.8801578370E+00
+              1.1054897685E+01  3.8266953525E-01  7.8801578370E+00
+      xred    9.6200000000E-01  3.7200000000E-01  1.7800000000E-01
+              6.2800000000E-01  3.8000000000E-02  3.2200000000E-01
+              3.8000000000E-02  6.2800000000E-01  6.7800000000E-01
+              3.7200000000E-01  9.6200000000E-01  8.2200000000E-01
+              1.6700000000E-01  1.6700000000E-01  0.0000000000E+00
+              8.3300000000E-01  8.3300000000E-01  5.0000000000E-01
+              7.5000000000E-01  2.5000000000E-01  2.5000000000E-01
+              2.5000000000E-01  7.5000000000E-01  7.5000000000E-01
+              7.9500000000E-01  7.0500000000E-01  2.5000000000E-01
+              2.9500000000E-01  2.0500000000E-01  2.5000000000E-01
+              2.0500000000E-01  2.9500000000E-01  7.5000000000E-01
+              7.0500000000E-01  7.9500000000E-01  7.5000000000E-01
+     znucl      8.00000    1.00000
+
+================================================================================
+
+ chkinp: machine precision is   2.2204460492503131E-16
+
+ chkinp: Checking input parameters for consistency.
+
+================================================================================
+== DATASET  1 ==================================================================
+
+ dtsetcopy : copying area  algalch    the actual size (           2 ) of the index (           1 )  differs from its standard size (           0 )
+ dtsetcopy : this could be a bug
+ dtsetcopy : copying area  kberry     the actual size (          20 ) of the index (           2 )  differs from its standard size (           1 )
+ dtsetcopy : this could be a bug
+ dtsetcopy : copying area  mixalch    the actual size (           2 ) of the index (           1 )  differs from its standard size (           0 )
+ dtsetcopy : this could be a bug
+ dtsetcopy : copying area  mixalch    the actual size (           2 ) of the index (           2 )  differs from its standard size (           0 )
+ dtsetcopy : this could be a bug
+ dtsetcopy : copying area  occ_orig   the actual size (          38 ) of the index (           1 )  differs from its standard size (          18 )
+ dtsetcopy : this could be a bug
+ dtsetcopy : copying area  shiftk     the actual size (           8 ) of the index (           2 )  differs from its standard size (           1 )
+ dtsetcopy : this could be a bug
+
+ getdim_nloc : deduce lmnmax  =   1, lnmax  =   1,
+                      lmnmaxso=   1, lnmaxso=   1.
+ Unit cell volume ucvol=  6.5848896E+02 bohr^3
+ Angles (23,13,12)=  9.00000000E+01  9.00000000E+01  5.99632787E+01 degrees
+
+ getcut: wavevector=  0.0000  0.0000  0.0000  ngfft=   2   2   2
+         ecut(hartree)=     -1.000   => boxcut(ratio)=       NaN
+- pspatm: opening atomic psp file    8o.pspnc
+  Troullier-Martins psp for element  O         Thu Oct 27 17:29:57 EDT 1994
+   8.00000   6.00000    940714                znucl, zion, pspdat
+    1    1    1    1      2001   0.00000      pspcod,pspxc,lmax,lloc,mmax,r2well
+    0   5.480  16.893    1   1.4482335        l,e99.0,e99.9,nproj,rcpsp
+   0.00000000   0.00000000   0.00000000   0.00000000     rms, ekb1, ekb2, epsatm
+    1  20.911  28.075    0   1.4482335        l,e99.0,e99.9,nproj,rcpsp
+   0.00000000   0.00000000   0.00000000   0.00000000     rms, ekb1, ekb2, epsatm
+    0.56990156784787    3.95561236318184    0.63894027514378   rchrg,fchrg,qchrg
+ pspatm: epsatm=    1.57752239
+         --- l  ekb(1:nproj) -->
+             0    5.670783
+ pspatm: atomic psp has been read  and splines computed
+
+- pspatm: opening atomic psp file    1h.pspnc
+  Troullier-Martins psp for element  H         Thu Oct 27 17:28:54 EDT 1994
+   1.00000   1.00000    940714                znucl, zion, pspdat
+    1    1    0    0      2001   0.00000      pspcod,pspxc,lmax,lloc,mmax,r2well
+    0   7.740  11.990    0   1.5855604        l,e99.0,e99.9,nproj,rcpsp
+   0.00000000   0.00000000   0.00000000   0.00000000     rms, ekb1, ekb2, epsatm
+    0.00000000000000    0.00000000000000    0.00000000000000   rchrg,fchrg,qchrg
+ Note: local psp for atom with Z=  1.0
+ pspatm: epsatm=    0.04198703
+         --- l  ekb(1:nproj) -->
+ pspatm: atomic psp has been read  and splines computed
+
+   2.12671546E+02                                ecore*ucvol(ha*bohr**3)
+ wfconv:    18 bands initialized randomly with npw=     0, for ikpt=     1
+
+ setup2: Arith. and geom. avg. npw (full set) are      -1.000      -1.000
+ symatm: atom number    1 is reached starting at atom
+   1  2  3  4
+ symatm: atom number    2 is reached starting at atom
+   2  1  4  3
+ symatm: atom number    3 is reached starting at atom
+   3  4  1  2
+ symatm: atom number    4 is reached starting at atom
+   4  3  2  1
+ symatm: atom number    5 is reached starting at atom
+   5  6  6  5
+ symatm: atom number    6 is reached starting at atom
+   6  5  5  6
+ symatm: atom number    7 is reached starting at atom
+   7  7  8  8
+ symatm: atom number    8 is reached starting at atom
+   8  8  7  7
+ symatm: atom number    9 is reached starting at atom
+   9 10 11 12
+ symatm: atom number   10 is reached starting at atom
+  10  9 12 11
+ symatm: atom number   11 is reached starting at atom
+  11 12  9 10
+ symatm: atom number   12 is reached starting at atom
+  12 11 10  9
+ initro : for itypat=  1, take decay length=      0.5000,
+ initro : indeed, coreel=      2.0000, nval=  6 and densty=  0.0000E+00.
+ initro : for itypat=  2, take decay length=      0.6000,
+ initro : indeed, coreel=      0.0000, nval=  1 and densty=  0.0000E+00.
+
+================================================================================
+
+ scprqt : ERROR -
+  For the SCF case, one and only one of the input tolerance criteria
+  tolwfr, toldff, tolrff, toldfe or tolvrs must differ from zero, while they are
+  tolwfr=  0.000000E+00, toldff=  0.000000E+00, tolrff=  0.000000E+00, toldfe=  0.000000E+00
+  and tolvrs=  0.000000E+00 .
+  Action : change your input file and resubmit the job.
+
+ leave_new : decision taken to exit ...
