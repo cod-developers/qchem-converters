@@ -1,16 +1,17 @@
+mkcomdepend h2o.com > .h2o.d
 ./h2o.com 2>&1 | tee h2o.log
 + basename ./inputs/h2o.inp
 + basename ./outputs/h2o.out
-+ basename ./inputs/8o.pspnc
-+ basename ./inputs/1h.pspnc
++ basename ./inputs/08o.pbe_hgh
++ basename ./inputs/01h.pbe_hgh
 + cat
-+ cp ./inputs/1h.pspnc ./tmp-h2o-3331
-+ cp ./inputs/8o.pspnc ./tmp-h2o-3331
-+ cp ./inputs/h2o.inp ./tmp-h2o-3331
++ cp ./inputs/01h.pbe_hgh ./tmp-h2o-4093
++ cp ./inputs/08o.pbe_hgh ./tmp-h2o-4093
++ cp ./inputs/h2o.inp ./tmp-h2o-4093
 + basename ./inputs/h2o.inp
 + cat
-+ cd ./tmp-h2o-3331
-+ basename ./tmp-h2o-3331/h2o.files
++ cd ./tmp-h2o-4093
++ basename ./tmp-h2o-4093/h2o.files
 + abinis
   ABINIT 
   
@@ -50,14 +51,14 @@ h2o
  instrng :    35 lines of input have been read
 
  iofn2 : Please give name of formatted atomic psp file
- iofn2 : for atom type   1 , psp file is 8o.pspnc
-  read the values zionpsp=  6.0 , pspcod=   1 , lmax=   1
+ iofn2 : for atom type   1 , psp file is 08o.pbe_hgh
+  read the values zionpsp=  6.0 , pspcod=   3 , lmax=   0
 
  iofn2 : Please give name of formatted atomic psp file
- iofn2 : for atom type   2 , psp file is 1h.pspnc
-  read the values zionpsp=  1.0 , pspcod=   1 , lmax=   0
+ iofn2 : for atom type   2 , psp file is 01h.pbe_hgh
+  read the values zionpsp=  1.0 , pspcod=   3 , lmax=   0
 
- iofn2 : deduce mpsang  =   2, n1xccc  =2501.
+ iofn2 : deduce mpsang  =   1, n1xccc  =   0.
 
  invars1m : enter jdtset=     0
  ingeo : takes atomic coordinates from input array xred
@@ -100,26 +101,27 @@ h2o
  memory : analysis of memory needs
 ================================================================================
  Values of the parameters that define the memory need of the present run
-   intxc =         0  ionmov =         0    iscf =         7     ixc =         1
+   intxc =         0  ionmov =         0    iscf =         7     ixc =        11
   lmnmax =         1   lnmax =         1   mband =        18  mffmem =         1
-P  mgfft =         2   mkmem =         1 mpssoang=         2     mpw =         0
+P  mgfft =         2   mkmem =         1 mpssoang=         1     mpw =         0
   mqgrid =      3001   natom =        12    nfft =         8    nkpt =         1
   nloalg =         4  nspden =         1 nspinor =         1  nsppol =         1
-    nsym =         4  n1xccc =      2501  ntypat =         2  occopt =         1
+    nsym =         4  n1xccc =         0  ntypat =         2  occopt =         1
 ================================================================================
-P This job should need less than                       0.866 Mbytes of memory.
+P This job should need less than                       0.637 Mbytes of memory.
   Rough estimation (10% accuracy) of disk space for files :
   WF disk file :      0.002 Mbytes ; DEN or POT disk file :      0.002 Mbytes.
 ================================================================================
 
  Biggest array : f_fftgr(disk), with      0.0030 MBytes.
  memana : allocated an array of      0.003 Mbytes, for testing purposes.
- memana : allocated       0.866 Mbytes, for testing purposes.
+ memana : allocated       0.637 Mbytes, for testing purposes.
  The job will continue.
  -outvars: echo values of preprocessed input variables --------
      acell    1.4739863580E+01  1.4739863580E+01  1.4739863580E+01 Bohr
        amu    1.59994000E+01  1.00794000E+00
     istwfk      2
+       ixc        11
 P    mkmem         1
      natom        12
      nband        18
@@ -207,33 +209,44 @@ P    mkmem         1
 
  getcut: wavevector=  0.0000  0.0000  0.0000  ngfft=   2   2   2
          ecut(hartree)=     -1.000   => boxcut(ratio)=       NaN
-- pspatm: opening atomic psp file    8o.pspnc
-  Troullier-Martins psp for element  O         Thu Oct 27 17:29:57 EDT 1994
-   8.00000   6.00000    940714                znucl, zion, pspdat
-    1    1    1    1      2001   0.00000      pspcod,pspxc,lmax,lloc,mmax,r2well
-    0   5.480  16.893    1   1.4482335        l,e99.0,e99.9,nproj,rcpsp
-   0.00000000   0.00000000   0.00000000   0.00000000     rms, ekb1, ekb2, epsatm
-    1  20.911  28.075    0   1.4482335        l,e99.0,e99.9,nproj,rcpsp
-   0.00000000   0.00000000   0.00000000   0.00000000     rms, ekb1, ekb2, epsatm
-    0.56990156784787    3.95561236318184    0.63894027514378   rchrg,fchrg,qchrg
- pspatm: epsatm=    1.57752239
+- pspatm: opening atomic psp file    08o.pbe_hgh
+ Hartwigsen-Goedecker-Hutter psp for Oxygen, PBE GGA, created in LLN.
+   8.00000   6.00000    980723                znucl, zion, pspdat
+    3   11    0    0      2001   0.00000      pspcod,pspxc,lmax,lloc,mmax,r2well
+ rloc=   0.2449978
+ cc1 = -16.6260393; cc2 =   2.4804681; cc3 =   0.0000000; cc4 =   0.0000000
+ rrs =   0.2210046; h11s=  18.3265022; h22s=   0.0000000; h33s=   0.0000000
+-  Local part computed in reciprocal space.
+
+ pspatm : COMMENT -
+  the projectors are not normalized,
+  so that the KB energies are not consistent with
+  definition in PRB44, 8503 (1991).
+  However, this does not influence the results obtained hereafter.
+ pspatm: epsatm=    0.13559956
          --- l  ekb(1:nproj) -->
-             0    5.670783
+             0    0.701276
  pspatm: atomic psp has been read  and splines computed
 
-- pspatm: opening atomic psp file    1h.pspnc
-  Troullier-Martins psp for element  H         Thu Oct 27 17:28:54 EDT 1994
-   1.00000   1.00000    940714                znucl, zion, pspdat
-    1    1    0    0      2001   0.00000      pspcod,pspxc,lmax,lloc,mmax,r2well
-    0   7.740  11.990    0   1.5855604        l,e99.0,e99.9,nproj,rcpsp
-   0.00000000   0.00000000   0.00000000   0.00000000     rms, ekb1, ekb2, epsatm
-    0.00000000000000    0.00000000000000    0.00000000000000   rchrg,fchrg,qchrg
- Note: local psp for atom with Z=  1.0
- pspatm: epsatm=    0.04198703
+- pspatm: opening atomic psp file    01h.pbe_hgh
+ Hartwigsen-Goedecker-Hutter psp for Hydrogen, PBE GGA, created in LLN.
+   1.00000   1.00000    980723                znucl, zion, pspdat
+    3   11    0    0      2001   0.00000      pspcod,pspxc,lmax,lloc,mmax,r2well
+ rloc=   0.2000000
+ cc1 =  -4.1789475; cc2 =   0.7244856; cc3 =   0.0000000; cc4 =   0.0000000
+ rrs =   0.2000000; h11s=   0.0000000; h22s=   0.0000000; h33s=   0.0000000
+-  Local part computed in reciprocal space.
+
+ pspatm : COMMENT -
+  the projectors are not normalized,
+  so that the KB energies are not consistent with
+  definition in PRB44, 8503 (1991).
+  However, this does not influence the results obtained hereafter.
+ pspatm: epsatm=   -0.00135815
          --- l  ekb(1:nproj) -->
  pspatm: atomic psp has been read  and splines computed
 
-   2.12671546E+02                                ecore*ucvol(ha*bohr**3)
+   1.70090562E+01                                ecore*ucvol(ha*bohr**3)
  wfconv:    18 bands initialized randomly with npw=     0, for ikpt=     1
 
  setup2: Arith. and geom. avg. npw (full set) are      -1.000      -1.000

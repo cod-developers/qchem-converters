@@ -12,8 +12,8 @@ BASENAME="`basename $0 .com`"
 
 INPUT_INP=./inputs/${BASENAME}.inp
 
-INPUT_PSP1=./inputs/1h.pspnc
-INPUT_PSP2=./inputs/8o.pspnc
+INPUT_PSP1=./inputs/01h.pbe_hgh
+INPUT_PSP2=./inputs/08o.pbe_hgh
 
 OUTPUT_DAT=./outputs/${BASENAME}.out
 
