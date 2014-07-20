@@ -1,0 +1,2 @@
++ cif2cell -p abinit inputs/1011063.cif -o ./outputs/cif2cell-1011063.abinit.inp
++ rm -rf ./tmp-cif2cell-1011063-32692
