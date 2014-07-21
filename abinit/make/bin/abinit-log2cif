@@ -129,7 +129,7 @@ for my $filename (@ARGV) {
 
     if( $log_data{atom_types} ) {
         print "loop_\n";
-        print "_atom_site_type_label\n";
+        print "_atom_site_type_symbol\n";
         print "_atom_site_Cartn_x\n";
         print "_atom_site_Cartn_y\n";
         print "_atom_site_Cartn_z\n";
