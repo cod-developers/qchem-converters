@@ -1,0 +1,146 @@
+#! /bin/sh
+#!perl -w # --*- Perl -*--
+eval 'exec perl -x $0 ${1+"$@"}'
+    if 0;
+#------------------------------------------------------------------------------
+#$Author$
+#$Date$ 
+#$Revision$
+#$URL$
+#------------------------------------------------------------------------------
+#*
+#  Extract data from Abinit (http://www.abinit.org/) log files and
+#  print them out in CIF (http://www.iucr.org/resources/cif) format
+#  using TCOD (http://www.crystallography.net/tcod/) dictionaries
+#  (http://www.crystallography.net/tcod/cif/dictionaries/)
+#**
+
+use strict;
+use File::Basename;
+use SOptions;
+use SUsage;
+
+my $input_file_list_name;
+my $input_task_description_name;
+
+#* USAGE:
+#*    $0 --options abinit*.out > output.cif
+#* 
+#* OPTIONS:
+#*   --input-file-list abinit.files
+#*       Give the name of the file that was given as an argument to the Abinit
+#*       computation; contains the list of the computation files.
+#*
+#*   --input-task-descrition
+#*       Give the name of the "task description file" for this computation
+#*       (the first file mentioned in the --input-file-list file).
+#*
+#*   --help,--usage         Print a short usage message (this message) and exit.
+#**
+
+@ARGV = getOptions( 
+    "--input-file-list" => \$input_file_list_name,
+    "--input-task-descrition" => \$input_task_description_name,
+    "--options" => sub {
+        print <<EOF;
+$0: the "--options" option is a placeholder where you can put
+any options supported by the $0 program. 
+Please see the option list below:
+EOF
+
+        SUsage::usage; exit
+    },
+    "--help,--usage" => sub { SUsage::usage; exit },
+);
+
+@ARGV = ( "-" ) unless @ARGV;
+
+for my $filename (@ARGV) {
+    open( LOG, $filename ) or
+        die "could not open '$filename' for reading: ", lcfirst($!);
+
+    my @log_lines;
+    my %log_data;
+
+    my %flags;
+
+    while(<LOG>) {
+        push( @log_lines, $_ );
+
+        if( /^\.Version\s+([\d\.]+)\s+of\s+(ABINIT)/ ) {
+            $log_data{program} = $2;
+            $log_data{version} = $1;
+            %flags = ();
+            next;
+        }
+        if( /^\s*spgroup\s+(\d+)/ ) {
+            $log_data{spacegroup} = $1;
+            %flags = ();
+            next;
+        }
+
+        if( /^\s*typat\s+\d+/ ) {
+            my @atom_types = split( " " );
+            shift( @atom_types );
+            $log_data{atom_types} = \@atom_types;
+            $flags{in_typat} = 1;
+            next;
+        }
+
+        if( /^\s*xangst\s+[-+\d\.eE]+/ ) {
+            my @atom_coord = split( " " );
+            shift( @atom_coord );
+            $log_data{atom_coord} = [ \@atom_coord ];
+            $flags{in_xangst} = 1;
+            next;
+        }
+
+        if( /^(\s+\d+)+\s*$/ ) {
+            my @atom_types = split( " "  );
+            push( @{$log_data{atom_types}}, @atom_types );
+        }
+        elsif( /^(\s+[-+\d\.eE]+)+\s*$/ && $flags{in_xangst} ) {
+            my @atom_coords = split( " " );
+            push( @{$log_data{atom_coord}}, \@atom_coords );
+        }
+        else {
+            %flags = ();
+        }
+
+    }
+
+    close( LOG ) or die( "error reading file '$filename': " . lcfirst($!) );
+
+    my $data_name =
+        File::Basename::basename( $filename, ('.log', '.dat', '.out'));
+
+    print "data_", $data_name, "\n";
+
+    print "_tcod_software_package ", $log_data{program}, "\n"
+        if $log_data{program};
+    print "_tcod_software_package_version ", $log_data{version}, "\n"
+        if $log_data{version};
+    print "_space_group_IT_number ", $log_data{spacegroup}, "\n"
+        if $log_data{spacegroup};
+
+    if( $log_data{atom_types} ) {
+        print "loop_\n";
+        print "_atom_site_type_label\n";
+        print "_atom_site_Cartn_x\n";
+        print "_atom_site_Cartn_y\n";
+        print "_atom_site_Cartn_z\n";
+        for my $i (0..$#{$log_data{atom_types}}) {
+            print $log_data{atom_types}[$i], " ";
+            print $log_data{atom_coord}[$i][0], " ";
+            print $log_data{atom_coord}[$i][1], " ";
+            print $log_data{atom_coord}[$i][2], " ";
+            print "\n";
+        }
+    }
+
+    print "_tcod_input_file\n";
+    print "; \\\n";
+    map { print " ", $_ } @log_lines;
+    print ";\n";
+
+}
