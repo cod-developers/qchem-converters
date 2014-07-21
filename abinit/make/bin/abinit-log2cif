@@ -16,6 +16,7 @@ eval 'exec perl -x $0 ${1+"$@"}'
 #**
 
 use strict;
+use AtomProperties;
 use File::Basename;
 use SOptions;
 use SUsage;
@@ -24,6 +25,13 @@ my $Id = '$Id$';
 
 my $input_file_list_name;
 my $input_task_description_name;
+
+my $atoms = \%AtomProperties::atoms;
+
+my %periodic_table =
+    map {
+        $atoms->{$_}{atomic_number}, {%{$atoms->{$_}}, "symbol" => $_}
+    } keys %AtomProperties::atoms;
 
 #* USAGE:
 #*    $0 --options abinit*.out > output.cif
@@ -65,6 +73,7 @@ for my $filename (@ARGV) {
     my %log_data;
 
     my %flags;
+    my @znumbers;
 
     while(<LOG>) {
         push( @log_lines, $_ );
@@ -78,6 +87,13 @@ for my $filename (@ARGV) {
         if( /^\s*spgroup\s+(\d+)/ ) {
             $log_data{spacegroup} = $1;
             %flags = ();
+            next;
+        }
+
+        if( /^\s*znucl\s+[-+\d\.eE]+/ ) {
+            @znumbers = split( " " );
+            shift( @znumbers );
+            $flags{in_znucl} = 1;
             next;
         }
 
@@ -105,6 +121,10 @@ for my $filename (@ARGV) {
             my @atom_coords = split( " " );
             push( @{$log_data{atom_coord}}, \@atom_coords );
         }
+        elsif( /^(\s+[-+\d\.eE]+)+\s*$/ && $flags{in_nucl} ) {
+            my @extra_znumbers = split( " " );
+            push( @znumbers, @extra_znumbers );
+        }
         else {
             %flags = ();
         }
@@ -129,12 +149,18 @@ for my $filename (@ARGV) {
 
     if( $log_data{atom_types} ) {
         print "loop_\n";
+        print "_atom_site_label\n";
         print "_atom_site_type_symbol\n";
         print "_atom_site_Cartn_x\n";
         print "_atom_site_Cartn_y\n";
         print "_atom_site_Cartn_z\n";
+        my $n = 1;
         for my $i (0..$#{$log_data{atom_types}}) {
-            print $log_data{atom_types}[$i], " ";
+            my $atomic_number = int($znumbers[$log_data{atom_types}[$i]-1]);
+            my $atom = $periodic_table{$atomic_number};
+            my $atom_type = $atom->{symbol};
+            my $site_label = $atom_type . $n++;
+            print $site_label, " ", $atom_type, " ";
             print $log_data{atom_coord}[$i][0], " ";
             print $log_data{atom_coord}[$i][1], " ";
             print $log_data{atom_coord}[$i][2], " ";
