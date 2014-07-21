@@ -20,6 +20,8 @@ use File::Basename;
 use SOptions;
 use SUsage;
 
+my $Id = '$Id$';
+
 my $input_file_list_name;
 my $input_task_description_name;
 
@@ -115,6 +117,8 @@ for my $filename (@ARGV) {
         File::Basename::basename( $filename, ('.log', '.dat', '.out'));
 
     print "data_", $data_name, "\n";
+
+    print "_audit_creation_method '", $Id, "'\n";
 
     print "_tcod_software_package ", $log_data{program}, "\n"
         if $log_data{program};
