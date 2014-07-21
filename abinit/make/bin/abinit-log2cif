@@ -74,6 +74,8 @@ for my $filename (@ARGV) {
 
     my %flags;
     my @znumbers;
+    my @cell;
+    my @cell_angles;
 
     while(<LOG>) {
         push( @log_lines, $_ );
@@ -86,6 +88,27 @@ for my $filename (@ARGV) {
         }
         if( /^\s*spgroup\s+(\d+)/ ) {
             $log_data{spacegroup} = $1;
+            %flags = ();
+            next;
+        }
+        if( /^\s*acell\s+[-+\d\.eE]/ ) {
+            @cell = split( " " );
+            shift( @cell );
+            my $units = pop( @cell );
+            if( $units eq "Bohr" ) {
+                 # Bohr value taken from http://en.wikipedia.org/wiki/Bohr_radius:
+                @cell = map { $_ * 0.529177210 } @cell;
+            } else {
+                die "unknown units '$units' in file '$filename'";
+            }
+            %flags = ();
+            next;
+        }
+        if( /^\s*Angles/ ) {
+            @cell_angles = split( " " );
+            shift( @cell_angles );
+            shift( @cell_angles );
+            pop( @cell_angles );
             %flags = ();
             next;
         }
@@ -144,6 +167,15 @@ for my $filename (@ARGV) {
         if $log_data{program};
     print "_tcod_software_package_version ", $log_data{version}, "\n"
         if $log_data{version};
+
+    print "_cell_length_a ", $cell[0], "\n";
+    print "_cell_length_b ", $cell[1], "\n";
+    print "_cell_length_c ", $cell[2], "\n";
+
+    print "_cell_angle_alpha ", $cell_angles[0], "\n";
+    print "_cell_angle_beta  ", $cell_angles[1], "\n";
+    print "_cell_angle_gamma ", $cell_angles[2], "\n";
+
     print "_space_group_IT_number ", $log_data{spacegroup}, "\n"
         if $log_data{spacegroup};
 
