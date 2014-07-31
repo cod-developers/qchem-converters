@@ -113,6 +113,14 @@ for my $filename (@ARGV) {
             next;
         }
 
+        if( /^\s*rprim\s+\d+/ ) {
+            my @primitive_vector = split( " " );
+            shift( @primitive_vector );
+            $log_data{primitive_vectors} = [ \@primitive_vector ];
+            $flags{in_rprim} = 1;
+            next;
+        }
+
         if( /^\s*znucl\s+[-+\d\.eE]+/ ) {
             @znumbers = split( " " );
             shift( @znumbers );
@@ -148,6 +156,10 @@ for my $filename (@ARGV) {
             my @extra_znumbers = split( " " );
             push( @znumbers, @extra_znumbers );
         }
+        elsif( /^(\s+[-+\d\.eE]+)+\s*$/ && $flags{in_rprim} ) {
+            my @extra_primitive_vectors = split( " " );
+            push( @{$log_data{primitive_vectors}}, \@extra_primitive_vectors );
+        }
         else {
             %flags = ();
         }
@@ -168,13 +180,17 @@ for my $filename (@ARGV) {
     print "_tcod_software_package_version ", $log_data{version}, "\n"
         if $log_data{version};
 
+    $cell[0] *= vlength( $log_data{primitive_vectors}[0] );
+    $cell[1] *= vlength( $log_data{primitive_vectors}[1] );
+    $cell[2] *= vlength( $log_data{primitive_vectors}[2] );
+
     print "_cell_length_a ", $cell[0], "\n";
     print "_cell_length_b ", $cell[1], "\n";
     print "_cell_length_c ", $cell[2], "\n";
 
-    print "_cell_angle_alpha ", $cell_angles[0], "\n";
-    print "_cell_angle_beta  ", $cell_angles[1], "\n";
-    print "_cell_angle_gamma ", $cell_angles[2], "\n";
+    print "_cell_angle_alpha ", sprintf( "%f", $cell_angles[0] ), "\n";
+    print "_cell_angle_beta  ", sprintf( "%f", $cell_angles[1] ), "\n";
+    print "_cell_angle_gamma ", sprintf( "%f", $cell_angles[2] ), "\n";
 
     print "_space_group_IT_number ", $log_data{spacegroup}, "\n"
         if $log_data{spacegroup};
@@ -205,4 +221,15 @@ for my $filename (@ARGV) {
     map { print " ", $_ } @log_lines;
     print ";\n";
 
+}
+
+sub vlength
+{
+    my ($vector) = @_;
+
+    return sqrt(
+        $vector->[0] ** 2 +
+        $vector->[1] ** 2 +
+        $vector->[2] ** 2
+    );
 }
