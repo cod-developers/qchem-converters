@@ -137,10 +137,18 @@ for my $filename (@ARGV) {
         }
 
         if( /^\s*xangst\s+[-+\d\.eE]+/ ) {
-            my @atom_coord = split( " " );
-            shift( @atom_coord );
-            $log_data{atom_coord} = [ \@atom_coord ];
+            my @atom_coord_Cartn = split( " " );
+            shift( @atom_coord_Cartn );
+            $log_data{atom_coord_Cartn} = [ \@atom_coord_Cartn ];
             $flags{in_xangst} = 1;
+            next;
+        }
+
+        if( /^\s*xred\s+[-+\d\.eE]+/ ) {
+            my @atom_coord_fract = split( " " );
+            shift( @atom_coord_fract );
+            $log_data{atom_coord_fract} = [ \@atom_coord_fract ];
+            $flags{in_xred} = 1;
             next;
         }
 
@@ -149,8 +157,12 @@ for my $filename (@ARGV) {
             push( @{$log_data{atom_types}}, @atom_types );
         }
         elsif( /^(\s+[-+\d\.eE]+)+\s*$/ && $flags{in_xangst} ) {
-            my @atom_coords = split( " " );
-            push( @{$log_data{atom_coord}}, \@atom_coords );
+            my @atom_coord_Cartn = split( " " );
+            push( @{$log_data{atom_coord_Cartn}}, \@atom_coord_Cartn );
+        }
+        elsif( /^(\s+[-+\d\.eE]+)+\s*$/ && $flags{in_xred} ) {
+            my @atom_coord_fract = split( " " );
+            push( @{$log_data{atom_coord_fract}}, \@atom_coord_fract );
         }
         elsif( /^(\s+[-+\d\.eE]+)+\s*$/ && $flags{in_nucl} ) {
             my @extra_znumbers = split( " " );
@@ -192,16 +204,17 @@ for my $filename (@ARGV) {
     print "_cell_angle_beta  ", sprintf( "%f", $cell_angles[1] ), "\n";
     print "_cell_angle_gamma ", sprintf( "%f", $cell_angles[2] ), "\n";
 
-    print "_space_group_IT_number ", $log_data{spacegroup}, "\n"
+    print "# _space_group_IT_number ", $log_data{spacegroup}, "\n"
         if $log_data{spacegroup};
 
     if( $log_data{atom_types} ) {
         print "loop_\n";
         print "_atom_site_label\n";
         print "_atom_site_type_symbol\n";
-        print "_atom_site_Cartn_x\n";
-        print "_atom_site_Cartn_y\n";
-        print "_atom_site_Cartn_z\n";
+        print "_atom_site_fract_x\n";
+        print "_atom_site_fract_y\n";
+        print "_atom_site_fract_z\n";
+        print "_atom_site_occupancy\n";
         my $n = 1;
         for my $i (0..$#{$log_data{atom_types}}) {
             my $atomic_number = int($znumbers[$log_data{atom_types}[$i]-1]);
@@ -209,9 +222,10 @@ for my $filename (@ARGV) {
             my $atom_type = $atom->{symbol};
             my $site_label = $atom_type . $n++;
             print $site_label, " ", $atom_type, " ";
-            print $log_data{atom_coord}[$i][0], " ";
-            print $log_data{atom_coord}[$i][1], " ";
-            print $log_data{atom_coord}[$i][2], " ";
+            print $log_data{atom_coord_fract}[$i][0], " ";
+            print $log_data{atom_coord_fract}[$i][1], " ";
+            print $log_data{atom_coord_fract}[$i][2], " ";
+            print "1.0";
             print "\n";
         }
     }
