@@ -230,7 +230,7 @@ for my $filename (@ARGV) {
         }
     }
 
-    print "_tcod_optimisation_log_file\n";
+    print "_tcod_computation_log_file\n";
     print "; \\\n";
     map { print " ", $_ } @log_lines;
     print ";\n";
