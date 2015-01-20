@@ -160,6 +160,12 @@ for my $filename (@ARGV) {
             next;
         }
 
+        if( /^\s*cartesian forces \(eV\/Angstrom\) at end:/ ) {
+            $log_data{atom_forces_Cartn} = [];
+            $flags{in_cartn_forces} = 1;
+            next;
+        }
+
         if( /^(\s+\d+)+\s*$/ ) {
             my @atom_types = split( " "  );
             push( @{$log_data{atom_types}}, @atom_types );
@@ -198,6 +204,11 @@ for my $filename (@ARGV) {
         elsif( /^\s*>>>>>>>>> Etotal=\s*([-+\d\.eE]+)\s*$/ &&
                $flags{in_energy} ) {
             $log_data{total_energy} = $1 * $Ha2eV;
+        }
+        elsif( /^(\s+[-+\d\.eE]+)+\s*$/ && $flags{in_cartn_forces} ) {
+            my @atom_forces_Cartn = split( " " );
+            shift( @atom_forces_Cartn );
+            push( @{$log_data{atom_forces_Cartn}}, \@atom_forces_Cartn );
         }
         else {
             %flags = ();
@@ -241,6 +252,11 @@ for my $filename (@ARGV) {
         print "_atom_site_fract_x\n";
         print "_atom_site_fract_y\n";
         print "_atom_site_fract_z\n";
+        if( $log_data{atom_forces_Cartn} ) {
+            print "_tcod_atom_site_resid_force_Cartn_x\n";
+            print "_tcod_atom_site_resid_force_Cartn_y\n";
+            print "_tcod_atom_site_resid_force_Cartn_z\n";
+        }
         print "_atom_site_occupancy\n";
         my $n = 1;
         for my $i (0..$#{$log_data{atom_types}}) {
@@ -252,6 +268,11 @@ for my $filename (@ARGV) {
             print $log_data{atom_coord_fract}[$i][0], " ";
             print $log_data{atom_coord_fract}[$i][1], " ";
             print $log_data{atom_coord_fract}[$i][2], " ";
+            if( $log_data{atom_forces_Cartn} ) {
+                print $log_data{atom_forces_Cartn}[$i][0], " ";
+                print $log_data{atom_forces_Cartn}[$i][1], " ";
+                print $log_data{atom_forces_Cartn}[$i][2], " ";
+            }
             print "1.0";
             print "\n";
         }
