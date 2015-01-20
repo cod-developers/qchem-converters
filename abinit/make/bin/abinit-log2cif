@@ -166,6 +166,17 @@ for my $filename (@ARGV) {
             next;
         }
 
+        if( /^-\s*Total (cpu|wall clock)\s+time \(s,m,h\):\s+([\d\.]+)/ ) {
+            my $key = ($1 eq 'cpu') ? $1 : 'wall';
+            $log_data{"total_time_$key"} = $2;
+            next;
+        }
+
+        if( /^\s*At SCF step\s+\d+, etot is converged\s*:/ ) {
+            $flags{in_etot_conv} = 1;
+            next;
+        }
+
         if( /^(\s+\d+)+\s*$/ ) {
             my @atom_types = split( " "  );
             push( @{$log_data{atom_types}}, @atom_types );
@@ -210,6 +221,10 @@ for my $filename (@ARGV) {
             shift( @atom_forces_Cartn );
             push( @{$log_data{atom_forces_Cartn}}, \@atom_forces_Cartn );
         }
+        elsif( /diff in etot=\s*([-+\d\.eE]+) < toldfe=\s*([-+\d\.eE]+)/ &&
+               $flags{in_etot_conv} ) {
+            $log_data{total_energy_conv} = $2 * $Ha2eV;
+        }
         else {
             %flags = ();
         }
@@ -229,6 +244,10 @@ for my $filename (@ARGV) {
         if $log_data{program};
     print "_tcod_software_package_version ", $log_data{version}, "\n"
         if $log_data{version};
+    print "_tcod_computation_CPU_time ", $log_data{total_time_cpu}, "\n"
+        if $log_data{total_time_cpu};
+    print "_tcod_computation_wall_time ", $log_data{total_time_wall}, "\n"
+        if $log_data{total_time_wall};
 
     $cell[0] *= vlength( $log_data{primitive_vectors}[0] );
     $cell[1] *= vlength( $log_data{primitive_vectors}[1] );
@@ -286,6 +305,9 @@ for my $filename (@ARGV) {
         if $log_data{hartree_energy};
     print "_dft_ewald_energy ", $log_data{ewald_energy}, "\n"
         if $log_data{ewald_energy};
+
+    print "# _dft_cell_energy_conv ", $log_data{total_energy_conv}, "\n"
+        if $log_data{total_energy_conv};
 
     print "_tcod_computation_log_file\n";
     print "; \\\n";
