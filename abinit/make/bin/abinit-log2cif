@@ -33,6 +33,9 @@ my %periodic_table =
         $atoms->{$_}{atomic_number}, {%{$atoms->{$_}}, "symbol" => $_}
     } keys %AtomProperties::atoms;
 
+my $Ha2eV = 27.21138386; # taken from https://en.wikipedia.org/wiki/Hartree,
+                         # the value recommended by CODATA (2006)
+
 #* USAGE:
 #*    $0 --options abinit*.out > output.cif
 #* 
@@ -152,6 +155,11 @@ for my $filename (@ARGV) {
             next;
         }
 
+        if( /^\s*Components of total free energy \(in Hartree\) :/ ) {
+            $flags{in_energy} = 1;
+            next;
+        }
+
         if( /^(\s+\d+)+\s*$/ ) {
             my @atom_types = split( " "  );
             push( @{$log_data{atom_types}}, @atom_types );
@@ -171,6 +179,25 @@ for my $filename (@ARGV) {
         elsif( /^(\s+[-+\d\.eE]+)+\s*$/ && $flags{in_rprim} ) {
             my @extra_primitive_vectors = split( " " );
             push( @{$log_data{primitive_vectors}}, \@extra_primitive_vectors );
+        }
+        elsif( /^\s*$/ && $flags{in_energy} ) {
+            # Skipping empty lines
+        }
+        elsif( /^\s*(.*) energy\s*=\s*([-+\d\.eE]+)\s*$/ &&
+               $flags{in_energy} ) {
+            if(    $1 eq 'Kinetic' ) {
+                $log_data{kinetic_energy} = $2 * $Ha2eV;
+            }
+            elsif( $1 eq 'Hartree' ) {
+                $log_data{hartree_energy} = $2 * $Ha2eV;
+            }
+            elsif( $1 eq 'Ewald' ) {
+                $log_data{ewald_energy} = $2 * $Ha2eV;
+            }
+        }
+        elsif( /^\s*>>>>>>>>> Etotal=\s*([-+\d\.eE]+)\s*$/ &&
+               $flags{in_energy} ) {
+            $log_data{total_energy} = $1 * $Ha2eV;
         }
         else {
             %flags = ();
@@ -229,6 +256,15 @@ for my $filename (@ARGV) {
             print "\n";
         }
     }
+
+    print "_tcod_total_energy ", $log_data{total_energy}, "\n"
+        if $log_data{total_energy};
+    print "_dft_kinetic_energy ", $log_data{kinetic_energy}, "\n"
+        if $log_data{kinetic_energy};
+    print "_dft_hartree_energy ", $log_data{hartree_energy}, "\n"
+        if $log_data{hartree_energy};
+    print "_dft_ewald_energy ", $log_data{ewald_energy}, "\n"
+        if $log_data{ewald_energy};
 
     print "_tcod_computation_log_file\n";
     print "; \\\n";
