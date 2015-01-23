@@ -44,7 +44,7 @@ my $Ha2eV = 27.21138386; # taken from https://en.wikipedia.org/wiki/Hartree,
 #*       Give the name of the file that was given as an argument to the Abinit
 #*       computation; contains the list of the computation files.
 #*
-#*   --input-task-descrition
+#*   --input-task-description
 #*       Give the name of the "task description file" for this computation
 #*       (the first file mentioned in the --input-file-list file).
 #*
@@ -53,7 +53,7 @@ my $Ha2eV = 27.21138386; # taken from https://en.wikipedia.org/wiki/Hartree,
 
 @ARGV = getOptions( 
     "--input-file-list" => \$input_file_list_name,
-    "--input-task-descrition" => \$input_task_description_name,
+    "--input-task-description" => \$input_task_description_name,
     "--options" => sub {
         print <<EOF;
 $0: the "--options" option is a placeholder where you can put
