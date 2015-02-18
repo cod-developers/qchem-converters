@@ -18,7 +18,8 @@ endif
 #------------------------------------------------------------------------------
 
 ${INP_DIR}/.%.d: ${INP_DIR}/%
-	find $< -type f | xargs -i echo ${OUT_DIR}/$*.tar.gz: {} > $@
+	find $< -name .svn -prune -o -type f -print \
+		| xargs -i echo ${OUT_DIR}/$*.tar.gz: {} > $@
 
 ${OUT_DIR}/%.tar.gz:
 	run_vasp ${INP_DIR}/$* > $@
