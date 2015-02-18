@@ -1,0 +1,62 @@
+#! /bin/bash
+#------------------------------------------------------------------------------
+#$Author$
+#$Date$ 
+#$Revision$
+#$URL$
+#------------------------------------------------------------------------------
+#*
+#   Run VASP calculation from a specified folder and return results packed
+#   in .tar.gz file.
+#**
+
+setvar() { eval $1="'$3'"; }
+
+setvar INP_DIR = ""
+
+#** OPTIONS:
+#**
+#**  --help
+#**      Print short help message (this message) and exit.
+while [ $# -gt 0 ]
+do
+    case $1 in
+      --help|--hel|--he|--h)
+            gawk '/^#\*/,/^#\*\*/ {
+                    sub("^ *#[*]?[*]?", ""); \
+                    gsub("\\$0","'$0'"); \
+                    print $0
+                }' $0
+            exit
+            ;;      
+      -*) echo "`basename $0`: unknown option $1" >&2 ; exit 1 ;;
+      *)
+            setvar INP_DIR = "$1"
+            ;;
+    esac
+    shift
+done
+
+if [ -z "${INP_DIR}" ]
+then
+    echo "`basename $0`: no input folder specified" >&2
+    exit
+fi
+
+TMP_DIR="${TMPDIR}"
+BASENAME="$(basename $0)"
+
+test -z "${TMP_DIR}" && TMP_DIR="."
+TMP_DIR="${TMP_DIR}/tmp-${BASENAME}-$$"
+mkdir "${TMP_DIR}"
+
+# The actual script goes here
+
+rsync "${INP_DIR}" "${TMP_DIR}" >/dev/null
+(
+    cd "${TMP_DIR}"
+    vasp > vasp.log 2> vasp.err
+    tar c * | gzip -f
+)
+
+rm -rf "${TMP_DIR}"
