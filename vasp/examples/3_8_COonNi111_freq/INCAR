@@ -1,0 +1,14 @@
+  SYSTEM= CO on Ni111 - frequencies
+
+ general:
+   ENMAX  = 400
+   ISMEAR =    2  ; SIGMA = 0.2
+   ALGO   = Fast
+   EDIFF  = 1E-6
+   MAXMIX = 60  # reuse the mixer between ionic steps, saves time
+
+ dynamic:
+   NSW=100
+   IBRION = 5
+   NFREE  = 2
+

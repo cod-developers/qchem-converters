@@ -1,0 +1,3 @@
+ SYSTEM = CO dimer in a box
+ ISMEAR = 0   ! Gaussian smearing
+ LORBIT = 11

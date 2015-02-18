@@ -1,0 +1,10 @@
+O atom in a box
+ 1.0          ! universal scaling parameters
+ 8.0 0.0 0.0  ! lattice vector  a(1)
+ 0.0 8.0 0.0  ! lattice vector  a(2)
+ 0.0 0.0 8.0  ! lattice vector  a(3)
+1 1           ! number of atoms for each species
+sel           ! selective degrees of freedom are changed
+cart          ! positions in cartesian coordinates
+ 0 0 0       F F T  ! first atom
+ 0 0 1.143   F F T  ! second atom

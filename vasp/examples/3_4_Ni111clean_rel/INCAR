@@ -1,0 +1,14 @@
+
+ general:
+   ISTART = 0
+   ICHARG = 2
+   SYSTEM = clean (111) surface
+   ENMAX  = 270
+   ISMEAR =    2  ; SIGMA = 0.2
+   ALGO= Fast
+
+ dynamic:
+   NSW=100
+   POTIM = 0.2
+   IBRION = 1
+

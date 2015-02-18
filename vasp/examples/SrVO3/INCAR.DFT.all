@@ -1,0 +1,11 @@
+System  = SrVO3
+
+ISMEAR = -5
+EMIN = -20 ; EMAX = 20 ; NEDOS = 1000  # usefull energy range for density of states
+
+ALGO = Exact  ; NELM = 1               # exact diagonalization one step suffices
+EDIFF = 1E-8                           # high precision for groundstate calculation
+NBANDS = 96                            # need for a lot of bands in GW
+LOPTICS = .TRUE.                       # we need d phi/ d k  for GW calculations
+
+KPAR = 3

@@ -1,0 +1,13 @@
+for i in clean top hollow bridge
+do
+mv POSCAR_$i POSCAR
+mpirun .....
+mv OUTCAR $i/.
+mv CONTCAR $i/.
+mv XDATCAR $i/.
+mv OSZICAR $i/.
+mv POSCAR $i/POSCAR_start
+/bin/rm WAVECAR CHG*
+done
+exit
+

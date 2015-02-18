@@ -1,0 +1,20 @@
+## Static dielectric properties by means of DFPT
+#NBANDS= 4
+#EDIFF = 1E-6
+#LEPSILON = .TRUE.
+## try to add this to the DFPT calculation
+#LPEAD = .TRUE.
+## to get the ionic contributions to the
+## static dielectric properties from
+## perturbation theory
+#IBRION=8
+
+## Static dielectric properties by means of PEAD
+#EDIFF = 1E-8      # finite field requires very tight convergence
+#LCALCEPS = .TRUE.
+#NELM = 100
+
+## Leave this in
+ISMEAR =  0
+SIGMA  =  0.01
+GGA    = PE

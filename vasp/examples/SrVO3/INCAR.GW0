@@ -1,0 +1,16 @@
+System  = SrVO3
+
+ISMEAR = -5
+EMIN = -20 ; EMAX = 20 ; NEDOS = 1000  # usefull energy range for density of states
+
+NBANDS = 96                            # need for a lot of bands in GW
+
+ALGO = GW0                             # 
+NELM = 1                               # one step so this is really G0W0
+PRECFOCK = Fast                        # select fast mode for FFT's 
+ENCUTGW = 100                          # energy cutoff for response function
+NOMEGA = 200                           # metal, we need a lot of frequency points
+MAXMEM = 2500                          # memory per core
+NKRED = 2                              # sample down the GW to a coarse 2x2x2 grid
+
+KPAR = 3

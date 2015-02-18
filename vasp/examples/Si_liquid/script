@@ -1,0 +1,31 @@
+for i in 2000 1900 1800 1700 1600 1500 1400 1300 1200 1100 1000 900 800
+do
+cat >INCAR <<!
+SYSTEM =  Si
+# electronic degrees                                                            
+LREAL = A                      # real space projection
+PREC  = Normal                 # chose Low only after tests
+EDIFF = 1E-5                   # do not use default (too large drift)
+ISMEAR = -1 ; SIGMA = 0.130    # Fermi smearing: 1500 K 0.086 10-3
+ALGO = Very Fast               # recommended for MD (fall back ALGO = Fast)
+MAXMIX = 40                    # reuse mixer from one MD step to next
+ISYM = 0                       # no symmetry                                    
+NELMIN = 4                     # minimum 4 steps per time step, avoid breaking after 2 steps
+
+# MD (do little writing to save disc space)
+IBRION = 0 ; NSW =     400 ;  NWRITE = 0 ; LCHARG = .FALSE. ; LWAVE = .FALSE.
+TEBEG =   $i ; TEEND =  $i
+# canonic (Nose) MD with XDATCAR updated every 10 steps
+SMASS = 3 ;  NBLOCK = 10 ; POTIM = 3
+!
+mpirun -np 2 /path/to/your/vasp/executable
+cp XDATCAR XDATCAR.$i
+cp OUTCAR OUTCAR.$i
+cp PCDAT PCDAT.$i
+cp CONTCAR CONTCAR.$i
+cp POSCAR POSCAR.$i
+cp OSZICAR OSZICAR.$i
+cp CONTCAR POSCAR
+done
+
+

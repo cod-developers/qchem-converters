@@ -1,0 +1,13 @@
+  ENMAX = 400
+
+ general:
+   SYSTEM = clean nickel (111) surface
+   ISTART = 0
+   ICHARG = 2
+   ISMEAR =    2  ; SIGMA = 0.2
+   ALGO= Fast
+
+ special:
+   LVHAR = .TRUE.
+#  LVTOT = .TRUE.
+

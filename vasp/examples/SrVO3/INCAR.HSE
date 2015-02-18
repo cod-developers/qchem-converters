@@ -1,0 +1,13 @@
+System  = SrVO3
+
+ISMEAR = -5
+EMIN = -20 ; EMAX = 20 ; NEDOS = 1000  # usefull energy range for density of states
+
+EDIFF = 1E-8                           # high precision for groundstate calculation
+
+KPAR = 3
+LHFCALC = .TRUE.  ; HFSCREEN = 0.2  ; NBANDS = 48
+PRECFOCK = Fast   ; NELM = 1
+ALGO = Eigenval
+
+LWAVE = .FALSE.                        # do not write the wave functions

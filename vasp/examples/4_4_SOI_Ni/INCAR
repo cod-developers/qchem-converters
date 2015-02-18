@@ -1,0 +1,9 @@
+SYSTEM        = Ni (100) monolayer
+ISTART        = 0
+ENCUT         = 270.00
+LNONCOLLINEAR = .TRUE.
+MAGMOM        = 0.0 0.0 1.0
+VOSKOWN       = 1
+LSORBIT       = .TRUE.
+
+LMAXMIX       = 4

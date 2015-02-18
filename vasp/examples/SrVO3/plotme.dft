@@ -1,0 +1,7 @@
+set nokey
+set xrange [0: 4.28044]
+set yrange [-70.00000 : 20.00000]
+set xtics (" R "  0.00000," G "  1.44064," X "  2.27240," M "  3.10416," G "  4.28044)
+set grid
+plot "wannier90_band.dat" using ($1):($2-8.01486705) with lines,\
+     "bndstr.dat" using ($1/0.681253*4.28044):($2+6.90184028-8.01486705) with points

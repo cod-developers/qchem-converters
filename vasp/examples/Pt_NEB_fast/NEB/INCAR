@@ -1,0 +1,10 @@
+System: fcc Pt (001), 3layers
+ISTART = 0 
+EDIFF = 1e-6              # electronic convergence 
+PREC = Normal
+IBRION = 1                # DIIS algorithm
+NSW = 20
+EDIFFG = -0.01            # max forces: 0.1eV/AA
+ELMIN = 5                 # at least 5 el. scf steps  for each ionic step
+IMAGES = 2                # 2 intermediate geometries for  the NEB
+SPRING = -5               # spring constant 

@@ -1,0 +1,19 @@
+awk 'BEGIN{i=1} /frequency dependent IMAGINARY/,\
+                /frequency dependent      REAL/ \
+                 {a[i]=$1 ; b[i]=$2 ; i=i+1} \
+     END{for (j=4;j<i-2;j++) print a[j],b[j]}' OUTCAR > imag.dat
+
+awk 'BEGIN{i=1} /frequency dependent      REAL/,\
+                /The outermost node in the RPA/ \
+                 {a[i]=$1 ; b[i]=$2 ; i=i+1} \
+     END{for (j=4;j<i-2;j++) print a[j],b[j]}' OUTCAR > real.dat
+
+cat >plotfile<<!
+# set term postscript enhanced eps colour lw 2 "Helvetica" 20
+# set output "optics.eps"
+plot [0:25] "imag.dat" using (\$1):(\$2) w lp, "real.dat" using (\$1):(\$2) w lp
+!
+
+gnuplot -persist plotfile
+
+# rm imag.dat real.dat plotfile

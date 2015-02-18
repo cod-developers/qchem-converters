@@ -1,0 +1,5 @@
+To make a quick plot of SUMMARY.dia try:
+
+gnuplot
+
+gnuplot> plot "SUMMARY.dia" using ($1):($4) w lp

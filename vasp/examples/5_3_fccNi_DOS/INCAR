@@ -1,0 +1,20 @@
+## Plot the spin-polarized DOS of fcc Ni 
+## at HSE and PBE0 level, and compare with
+## standard PBE
+## Better preconverge with PBE first!
+
+  SYSTEM = fcc Ni
+  ISMEAR =   -5 
+  LORBIT=11
+
+  ISPIN=2
+  MAGMOM = 1
+
+## Selects the HSE06 hybrid function
+#LHFCALC = .TRUE. ; HFSCREEN = 0.2 ; 
+#ALGO = D ; TIME = 0.4 
+
+## Selects the PBE0  hybrid function
+#LHFCALC = .TRUE. ; 
+#ALGO = D ; TIME = 0.4 
+

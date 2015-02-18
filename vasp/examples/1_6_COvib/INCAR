@@ -1,0 +1,6 @@
+ SYSTEM = CO dimer in a box
+ ISMEAR = 0   ! Gaussian smearing
+ IBRION = 5   ! use the conjugate gradient algorithm
+ NFREE = 2    ! central differences
+ POTIM = 0.02 ! 0.02 A stepwidth 
+ NSW = 1      ! ionic steps > 0

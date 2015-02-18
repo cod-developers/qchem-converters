@@ -1,0 +1,17 @@
+   ISTART = 0; ICHARG = 2
+
+ general:
+   SYSTEM = clean Ni(100) surface
+   ENCUT  = 270 
+   ISMEAR =    2  ; SIGMA = 0.2
+   ALGO= Fast
+
+ spin:
+   ISPIN=2
+   MAGMOM = 5*1
+
+ dynamic:
+   NSW   = 100
+   POTIM = 0.2
+   IBRION = 1
+

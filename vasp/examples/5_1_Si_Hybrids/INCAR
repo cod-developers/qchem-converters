@@ -1,0 +1,23 @@
+## Better preconverge with PBE first!
+
+## Selects the B3LYP hybrid function
+#LHFCALC = .TRUE. ; GGA = B3 ; AEXX = 0.2 ; AGGAX = 0.72 
+#AGGAC = 0.81 ; ALDAC = 0.19
+#ALGO = D ; TIME = 0.4 
+
+## Selects the PBE0  hybrid function
+#LHFCALC = .TRUE. ; 
+#ALGO = D ; TIME = 0.4 
+
+## Selects the HSE06 hybrid function
+#LHFCALC = .TRUE. ; HFSCREEN = 0.2 ; 
+#ALGO = D ; TIME = 0.4 
+
+## Selects HF 
+#LHFCALC = .TRUE. ; AEXX = 1.0 ; ALDAC = 0.0 ; AGGAC = 0
+#ALGO = D ; TIME = 0.4 
+
+## Leave this in
+ISMEAR =  0
+SIGMA  =  0.01
+GGA    = PE

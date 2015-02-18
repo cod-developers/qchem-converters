@@ -1,0 +1,20 @@
+set size .6,1.;set term postscript eps enhanced "Helvetica" 26
+set border 15 lw 2
+set output "workf.ps"
+#set title "local potential along z"
+set encoding iso_8859_1
+set xlabel "z" 0,.8
+show xlabel
+set ylabel "E [eV]" 1.5,0
+show ylabel
+set format x "%.0f"
+set format y "%.1f"
+show format
+set nokey
+
+set arrow 2 from 0,0.2249 to 280,0.2249 nohead
+
+
+plot [0:280][-10:9] "VLINE.2" u:2 wi li
+
+!gv workf.ps

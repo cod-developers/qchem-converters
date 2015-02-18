@@ -1,0 +1,12 @@
+   ICHARG = 11
+ general:
+   SYSTEM = clean (100) nickel surface
+   ENMAX  = 270
+   ISMEAR =   2 ; SIGMA = 0.2
+   ALGO= Normal
+
+ spin:
+   ISPIN=2
+   MAGMOM = 5*1
+
+   LORBIT = 10

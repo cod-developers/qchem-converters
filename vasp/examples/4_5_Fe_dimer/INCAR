@@ -1,0 +1,18 @@
+SYSTEM        = Fe dimer
+ISTART        = 0
+ISYM          = 0
+LNONCOLLINEAR = .TRUE.
+MAGMOM        = 0 0 3   0 0 3
+VOSKOWN       = 1
+LORBIT        = 11
+
+! mix slowly when increasing LAMBDA 
+# AMIX          = 0.1
+# BMIX          = 0.00001
+# AMIX_MAG      = 0.2
+# BMIX_MAG      = 0.00001
+
+# I_CONSTRAINED_M = 1
+# RWIGS           = 1.0
+# LAMBDA          = 10
+# M_CONSTR        = 0 0 1  0 0 1

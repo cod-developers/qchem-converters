@@ -1,0 +1,15 @@
+ general:
+   ENMAX = 400
+   SYSTEM = CO adsorption on Ni(111)
+   ISMEAR = -5
+   ALGO= Fast
+
+ LDOS:
+   LORBIT = 10
+
+ workfunction:
+   IDIPOL=3
+   LDIPOL= .TRUE.
+   LVHAR = .TRUE.
+#  LVTOT = .TRUE.
+

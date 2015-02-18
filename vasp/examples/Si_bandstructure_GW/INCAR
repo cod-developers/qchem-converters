@@ -1,0 +1,23 @@
+## Step 1: default PBE
+#ISMEAR =  0
+#SIGMA  =  0.05
+#GGA    = PE
+##
+
+## Step 2: virtual orbitals
+#ISMEAR =  0
+#SIGMA  =  0.05
+#GGA    = PE
+#
+#ALGO = Exact
+#NBANDS  = 64
+#LOPTICS=.TRUE.
+#NEDOS=2000
+##
+
+## Step 3: GW + WANNIER90
+#ALGO = GW0 ; LSPECTRAL = .TRUE. ; NOMEGA = 50
+#NBANDS=64
+#LRPA = .FALSE.
+#LWANNIER90=.TRUE.
+##

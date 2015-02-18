@@ -1,0 +1,10 @@
+ SYSTEM = H2O vibration
+ PREC = A
+# IBRION = 1 ; NSW = 10 ; NFREE = 2 ; EDIFFG = -1E-4
+ ENMAX = 400
+ ISMEAR = 0    # Gaussian smearing
+ IBRION = 6    # finite differences with symmetry
+ NFREE = 2     # central differences (default)
+ POTIM = 0.015 # default as well
+ EDIFF = 1E-8 
+ NSW = 1       # ionic steps > 0

@@ -1,0 +1,11 @@
+general: 
+   SYSTEM = clean (100) Ni surface
+   ENMAX = 270 
+   ISMEAR =   -5
+   ALGO= Normal 
+
+ spin:
+   ISPIN=2
+   MAGMOM = 5*1
+
+   LORBIT = 10  # s,p and d DOS inside PAW spheres 

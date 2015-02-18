@@ -1,0 +1,73 @@
+#
+# interpolate two POSCAR files
+# POSCAR files must be concated before passing them to 
+# this awk script
+# first line of the first POSCAR file should be
+# rep number_of_replicase
+# if there is any line containing the term center
+# differences in the center of mass will be removed
+# 
+file=$1
+if [ ! -x $file ]
+then
+  usage: interpolatePOS POSCAR1_POSCAR2
+fi
+
+awk <$file '
+BEGIN { rep=4; center=0 }
+/center/ { center=1} 
+/rep/ { rep=$2 }
+ { line=line+1
+   if ( second != 1 ) {
+       if ( line == 6 )  {
+          lines = $1 + $2 + $3 + 7
+          print "found ",lines," ions"
+          head[line] = $0
+       } else if ( line < 8 ) 
+          head[line] = $0
+       else 
+          { 
+             x[line-7] = $1 ; y[line-7] = $2 ; z[line-7] = $3 
+             if (line==lines) {
+                   line=0; second=1; 
+                   print "first set read"
+             } 
+          }
+    } else {
+       if ( line >= 8 ) 
+          { 
+              x2[line-7] = $1; y2[line-7] = $2 ; z2[line-7] = $3  }
+             if (line==lines) {
+                   print "second set read"
+             } 
+    }
+}
+END  {
+   lines=lines-7
+   for ( line=1; line<=lines ; line ++ )  {
+  	cx1=cx1+ x[line] ; cy1=cy1+ y[line] ; cz1=cz1+ z[line]
+  	cx2=cx2+ x2[line]; cy2=cy2+ y2[line]; cz2=cz2+ z2[line]
+   }
+   if (center) {
+     cx=(cx2-cx1)/lines
+     cy=(cy2-cy1)/lines
+     cz=(cz2-cz1)/lines
+     print "center of mass for second cell will be shifted by",cx,cy,cz
+   }
+
+   for ( i=0; i<rep ; i++ ) {
+       file="0" i "/POSCAR" 
+       print "writing to " file
+       for (line=1; line<=7 ; line++ )
+          print head[line]  >file
+       for ( line=1; line<=lines ; line ++ )  {
+          b=i/(rep-1)
+          a=(rep-1-i)/(rep-1)
+          dx=a*x[line] + b*(x2[line]-cx)
+          dy=a*y[line] + b*(y2[line]-cy)
+          dz=a*z[line] + b*(z2[line]-cz)
+
+          printf " %10.6f  %10.6f %10.6f\n",dx,dy,dz >file
+       }
+   }
+}'

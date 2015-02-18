@@ -1,0 +1,63 @@
+awk <XDATCAR  >diffusion.xy '
+#
+# simple module function
+#
+function mod(x,y) { return x-int(x/y)*y }
+function minim(x) { return mod(x+2.5,1.0)-0.5 }
+#
+# calculate mean square displacement
+#
+function diff() {
+       d=0	
+       for (ion=1; ion<=ions; ion++) {
+         dx=minim(xn[ion]-x[ion])
+         dy=minim(yn[ion]-y[ion])
+         dz=minim(zn[ion]-z[ion])
+
+         xn[ion]=x[ion]+dx
+         yn[ion]=y[ion]+dy
+         zn[ion]=z[ion]+dz
+
+
+	 d=d+(xn[ion]-x0[ion])*(xn[ion]-x0[ion])*a1*a1
+         d=d+(yn[ion]-y0[ion])*(yn[ion]-y0[ion])*a2*a2
+         d=d+(zn[ion]-z0[ion])*(zn[ion]-z0[ion])*a3*a3
+       }
+#       d=d/(set*t)/6
+       d=d/6
+       print set*t,d
+}   
+#
+# set the number of ions
+#
+NR==1 { ions = $1 }
+NR==2 { a1=$2*10^10 ;  a2=$3*10^10 ;  a3=$4*10^10 ; t=$5*10^12 }
+#
+# at this point a complete set of ionic positions has been found
+#
+mod(NR-6,ions+1)==0 {
+    if (set>=2) diff()    
+    if (set==1) {
+       for (ion=1; ion<=ions; ion++) {
+         x0[ion]=xn[ion]
+         y0[ion]=yn[ion]
+         z0[ion]=zn[ion]
+       }
+    }
+    for (ion=1; ion<=ions; ion++) {
+         x[ion]=xn[ion]
+         y[ion]=yn[ion]
+         z[ion]=zn[ion]
+    }
+    head=headn
+    headn=$0
+    set=set+1
+}
+# store coordinates
+mod(NR-6,ions+1)>0  {
+    ion=mod(NR-6,ions+1)
+    xn[ion]=$1
+    yn[ion]=$2
+    zn[ion]=$3
+}
+' 

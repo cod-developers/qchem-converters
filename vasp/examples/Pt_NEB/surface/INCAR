@@ -1,0 +1,10 @@
+System: fcc Pt (001), 4layers
+ISTART = 0 
+EDIFF = 1e-6              # electronic convergence 
+PREC = High
+IBRION = 1                # DIIS algorithm
+POTIM = 0.5               
+NSW = 10
+EDIFFG = -0.01            # max forces: 0.1eV/AA
+ELMIN = 5                 # at least 5 el. scf steps  for each ionic step
+ENCUT =  300.0            #keep ENCUT from a_0 optimization

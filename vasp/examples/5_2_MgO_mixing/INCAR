@@ -1,0 +1,19 @@
+##############################################
+## Optimum HSE mixing parameter (AEXX) for MgO
+## Expt gap = 7.8 eV
+## fit gap wrt. 0<AEXX<1
+## Compute the bandgap using different value of AEXX 
+## in the range (0,1) and find the value which leads 
+## to the best agreement with the experimental gap. 
+## hint: the gap grows lineraly with AEXX
+## Better preconverge with PBE first!
+##############################################
+
+## Selects the HSE06 hybrid function
+#LHFCALC = .TRUE. ; HFSCREEN = 0.2 ; AEXX=0.25  
+#ALGO = D ; TIME = 0.4 
+
+## Leave this in
+ISMEAR =  0
+SIGMA  =  0.01
+GGA    = PE

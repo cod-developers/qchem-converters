@@ -1,0 +1,16 @@
+head -1006 DOSCAR | tail -1000 > total.dat
+head -2007 DOSCAR | tail -1000 > Sr.dat
+head -3008 DOSCAR | tail -1000 > V.dat
+head -4009 DOSCAR | tail -1000 > O1.dat
+head -5010 DOSCAR | tail -1000 > O2.dat
+tail -1000 DOSCAR              > O3.dat
+
+cat >plotfile<<!
+plot \
+"total.dat" using (\$1):(\$2) with lines title "total", \
+"V.dat" using (\$1):(\$6+\$7+\$9) with lines title "V t2g", \
+"V.dat" using (\$1):(\$8+\$10) with lines title "V eg"
+!
+
+gnuplot -persist plotfile
+

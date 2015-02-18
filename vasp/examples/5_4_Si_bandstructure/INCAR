@@ -1,0 +1,23 @@
+## Do a HSE hybrid functional banstructure calculation with 
+## (1) the KPOINTS.HSE.G-X file
+##     (i)   preconverge with DFT using the standard KPOINTS file
+##     (ii)  HSE calculation using the KPOINTS.HSE.G-X file
+##     (iii) plot with p4vasp
+## (2) using VASP2WANNIER90 (Use the standard KPOINTS file)
+##     (i)   preconverge with DFT 
+##     (ii)  HSE calculation with  LWANNIER90=.TRUE. and wannier.win
+##     (iii) Run wannier90: wannier90.x wannier90
+##     (iv)  Restart wannier90 wih the bandplot options in wannier.win uncommented
+## Better first preconverge with DFT 
+
+## Default       
+ISMEAR =  0
+SIGMA  =  0.01
+GGA    = PE
+
+## HSE
+#LHFCALC = .TRUE. ; HFSCREEN = 0.2 ; AEXX = 0.25
+#ALGO = D ; TIME = 0.4 ; LDIAG = .TRUE.
+
+##VASP2WANNIER
+#LWANNIER90=.TRUE.
