@@ -195,33 +195,76 @@ from aiida.tools.dbimporters.plugins.cod import CodDbImporter
 from aiida.orm.data.cif import parse_formula
 codi = CodDbImporter()
 
+launched_calcs = {}
+
+## SQL query, executed in the COD database:
+## select file, formula
+## from data
+## where nel = 3 and a < 5 and b < 5 and c < 5 and
+##       alpha = 90 and beta = 90 and gamma = 90
+## order by file
+
 for entry in [
-    1001184,
-    1001185,
-    1001186,
-    1001619,
-    1001775,
-    1004073,
-    1005047,
-    1005048,
-    1008016,
-    1008017,
+#     1001184,
+#     1001185,
+#     1001186,
+#     1001619,
+#     1001775,
+#     1004073,
+#     1005047,
+#     1005048,
+#     1008016,
+#     1008017,
+
+#     1008114,
+#     1008127,
+#     1008128,
+#     1008562,
+#     1008756,
+#     1008763,
+#     1008957,
+#     1008958,
+#     1008959,
+#     1009040,
+
+#     1009044,
+#     1009045,
+#     1009046,
+#     1009048,
+#     1009050,
+#     1009051,
+#     1009073,
+#     1009074,
+#     1010020,
+#     1010301,
+
     ]:
 
     r = codi.query(id=entry)
     cif = r[0].get_cif_node(store=True)
-    struct = cif._get_aiida_structure(store=True)
+
+    try:
+        struct = cif._get_aiida_structure(store=True)
+    except KeyError:
+        print('{}: unable to construct AiiDA structure -- structure '
+              'possibly contains deuterium'.format(entry))
+        continue
 
     elements = parse_formula(cif.get_formulae()[0])
 
     ecutwfc_max = 0
     ecutrho_max = 0
 
-    for e in elements:
-        if  ecutwfc_max < sssp_config[e][0]:
-            ecutwfc_max = sssp_config[e][0]
-        if  ecutrho_max < sssp_config[e][0] * sssp_config[e][1]:
-            ecutrho_max = sssp_config[e][0] * sssp_config[e][1]
+    try:
+        for e in elements:
+            if  ecutwfc_max < sssp_config[e][0]:
+                ecutwfc_max = sssp_config[e][0]
+            if  ecutrho_max < sssp_config[e][0] * sssp_config[e][1]:
+                ecutrho_max = sssp_config[e][0] * sssp_config[e][1]
+    except KeyError:
+        print('{}: can not find pseudopotential for one or more '
+              'elements in a structure'.format(entry))
+        continue
 
     parameters = ParameterData(dict={
         'CONTROL': {
@@ -247,7 +290,8 @@ for entry in [
     calc.set_max_wallclock_seconds(max_seconds)
     # Valid only for Slurm and PBS (using default values for the
     # number_cpus_per_machine), change for SGE-like schedulers 
-    calc.set_resources({"num_machines": 1})
+    calc.set_resources({"num_machines": 1,
+                        "num_mpiprocs_per_machine": 1})
 
     if queue is not None:
         calc.set_queue_name(queue)
@@ -288,10 +332,34 @@ for entry in [
             ))
         else:
             calc.store_all()
-            print "created calculation; calc=Calculation(uuid='{}') # ID={}".format(
-                calc.uuid, calc.dbnode.pk)
             calc.submit()
-            print "submitted calculation; calc=Calculation(uuid='{}') # ID={}".format(
-                calc.uuid, calc.dbnode.pk)
+            print "{}: submitted for calculation, pk={}".format(entry,
+                                                            calc.dbnode.pk)
+            launched_calcs[calc.dbnode.pk] = { "codid": entry,
+                                               "calculation": calc }
     except InputValidationError:
         pass
+
+from aiida.tools.dbexporters.tcod import deposit
+import time
+
+for pk in launched_calcs.keys():
+    codid = launched_calcs[pk]['codid']
+    calc  = launched_calcs[pk]['calculation']
+
+    while not calc.has_finished_ok() and not calc.has_failed():
+        time.sleep(15)
+
+    if not calc.has_finished_ok():
+        print "{}: calculation was not successful".format(codid)
+        continue
+
+    struct = calc.out.output_structure
+    deposit(struct,
+            'personal',
+            url="http://www.crystallography.net/tcod/cgi-bin/cif-deposit.pl",
+            title='Relaxation of COD entry {} using '
+                  'Quantum ESPRESSO and SSSP'.format(codid),
+            code='cif_cod_deposit_local',
+            computer='theospc11',
+            gzip=True)
