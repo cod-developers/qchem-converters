@@ -238,6 +238,17 @@ for entry in [
 #     1010020,
 #     1010301,
 
+1010348,
+1010404,
+1010406,
+1010407,
+1010419,
+1010420,
+1010424,
+1010425,
+1010652,
+1010653,
+
     ]:
 
     r = codi.query(id=entry)
@@ -290,8 +301,7 @@ for entry in [
     calc.set_max_wallclock_seconds(max_seconds)
     # Valid only for Slurm and PBS (using default values for the
     # number_cpus_per_machine), change for SGE-like schedulers 
-    calc.set_resources({"num_machines": 1,
-                        "num_mpiprocs_per_machine": 1})
+    calc.set_resources({"num_machines": 1})
 
     if queue is not None:
         calc.set_queue_name(queue)
@@ -360,6 +370,6 @@ for pk in launched_calcs.keys():
             url="http://www.crystallography.net/tcod/cgi-bin/cif-deposit.pl",
             title='Relaxation of COD entry {} using '
                   'Quantum ESPRESSO and SSSP'.format(codid),
-            code='cif_cod_deposit_local',
-            computer='theospc11',
+            code_label='cif_cod_deposit_local',
+            computer_name='theospc11',
             gzip=True)
