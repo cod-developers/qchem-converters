@@ -95,6 +95,11 @@ for my $filename (@ARGV) {
             }
         }
 
+        if( /^\s+Space group of crystal = +(\d+): +([^,]+),/ ) {
+            $log_data{spacegroup} = $1;
+            $log_data{H_M_symbol} = $2;
+        }
+
     }
 
     close( LOG ) or die( "error reading file '$filename': " . lcfirst($!) );
@@ -118,6 +123,12 @@ for my $filename (@ARGV) {
     print "_cell_angle_alpha ", sprintf( "%f", $cell_angles[0] ), "\n";
     print "_cell_angle_beta  ", sprintf( "%f", $cell_angles[1] ), "\n";
     print "_cell_angle_gamma ", sprintf( "%f", $cell_angles[2] ), "\n";
+
+    print "_space_group_IT_number ", $log_data{spacegroup}, "\n"
+        if $log_data{spacegroup};
+
+    print "_symmetry_space_group_name_H-M ", $log_data{H_M_symbol}, "\n"
+        if $log_data{H_M_symbol};
 
     if( $log_data{atom_coord_fract} ) {
         print "loop_\n";
