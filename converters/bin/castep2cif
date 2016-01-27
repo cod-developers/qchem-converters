@@ -21,6 +21,9 @@ use SUsage;
 
 my $Id = '$Id$';
 
+my $number = '[-+]?(?:\d+\.?\d*|\.\d+)(?:eE[-+]?\d+)?';
+
+
 #* USAGE:
 #*    $0 --options output*.castep > output.cif
 #* 
@@ -51,6 +54,8 @@ for my $filename (@ARGV) {
     my @log_lines;
     my %log_data;
     my %flags;
+    my @cell;
+    my @cell_angles;
 
     while(<LOG>) {
         push( @log_lines, $_ );
@@ -72,6 +77,11 @@ for my $filename (@ARGV) {
                 $log_data{$line[0]} = $line[1];
             }
         }
+
+        if( /^\s+(a|b|c) = +($number) +(alpha|beta|gamma) = +($number)/ ) {
+            push( @cell, $2 );
+            push( @cell_angles, $4 );
+        }
     }
 
     close( LOG ) or die( "error reading file '$filename': " . lcfirst($!) );
@@ -87,6 +97,14 @@ for my $filename (@ARGV) {
         if $log_data{program};
     print "_tcod_software_package_version ", $log_data{version}, "\n"
         if $log_data{version};
+
+    print "_cell_length_a ", $cell[0], "\n";
+    print "_cell_length_b ", $cell[1], "\n";
+    print "_cell_length_c ", $cell[2], "\n";
+
+    print "_cell_angle_alpha ", sprintf( "%f", $cell_angles[0] ), "\n";
+    print "_cell_angle_beta  ", sprintf( "%f", $cell_angles[1] ), "\n";
+    print "_cell_angle_gamma ", sprintf( "%f", $cell_angles[2] ), "\n";
 
     for my $key (sort grep /^_castep_/, keys %log_data) {
         my $value = $log_data{$key};
