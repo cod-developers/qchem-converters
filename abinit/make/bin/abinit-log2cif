@@ -31,7 +31,7 @@ my $atoms = \%COD::AtomProperties::atoms;
 my %periodic_table =
     map {
         ( $atoms->{$_}{atomic_number}, {%{$atoms->{$_}}, "symbol" => $_} )
-    } keys %COD::AtomProperties::atoms;
+    } sort keys %COD::AtomProperties::atoms;
 
 my $Ha2eV = 27.21138386; # taken from https://en.wikipedia.org/wiki/Hartree,
                          # the value recommended by CODATA (2006)
