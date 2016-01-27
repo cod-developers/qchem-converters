@@ -263,7 +263,7 @@ for my $filename (@ARGV) {
     print "_cell_angle_beta  ", sprintf( "%f", $cell_angles[1] ), "\n";
     print "_cell_angle_gamma ", sprintf( "%f", $cell_angles[2] ), "\n";
 
-    print "# _space_group_IT_number ", $log_data{spacegroup}, "\n"
+    print "_space_group_IT_number ", $log_data{spacegroup}, "\n"
         if $log_data{spacegroup};
 
     if( $log_data{atom_types} ) {
