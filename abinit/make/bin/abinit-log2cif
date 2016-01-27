@@ -16,7 +16,7 @@ eval 'exec perl -x $0 ${1+"$@"}'
 #**
 
 use strict;
-use AtomProperties;
+use COD::AtomProperties;
 use File::Basename;
 use SOptions;
 use SUsage;
@@ -26,12 +26,12 @@ my $Id = '$Id$';
 my $input_file_list_name;
 my $input_task_description_name;
 
-my $atoms = \%AtomProperties::atoms;
+my $atoms = \%COD::AtomProperties::atoms;
 
 my %periodic_table =
     map {
-        $atoms->{$_}{atomic_number}, {%{$atoms->{$_}}, "symbol" => $_}
-    } keys %AtomProperties::atoms;
+        ( $atoms->{$_}{atomic_number}, {%{$atoms->{$_}}, "symbol" => $_} )
+    } keys %COD::AtomProperties::atoms;
 
 my $Ha2eV = 27.21138386; # taken from https://en.wikipedia.org/wiki/Hartree,
                          # the value recommended by CODATA (2006)
@@ -249,9 +249,11 @@ for my $filename (@ARGV) {
     print "_tcod_computation_wall_time ", $log_data{total_time_wall}, "\n"
         if $log_data{total_time_wall};
 
-    $cell[0] *= vlength( $log_data{primitive_vectors}[0] );
-    $cell[1] *= vlength( $log_data{primitive_vectors}[1] );
-    $cell[2] *= vlength( $log_data{primitive_vectors}[2] );
+    if( exists $log_data{primitive_vectors} ) {
+        $cell[0] *= vlength( $log_data{primitive_vectors}[0] );
+        $cell[1] *= vlength( $log_data{primitive_vectors}[1] );
+        $cell[2] *= vlength( $log_data{primitive_vectors}[2] );
+    }
 
     print "_cell_length_a ", $cell[0], "\n";
     print "_cell_length_b ", $cell[1], "\n";
