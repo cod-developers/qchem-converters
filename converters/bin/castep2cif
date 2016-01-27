@@ -60,6 +60,19 @@ for my $filename (@ARGV) {
             ( $log_data{version}, $log_data{program} ) =
                 ( $vstring[-2], $vstring[-4] );
         }
+        if( /^\s*\*+ General Parameters \*+/...
+            /^\s*\*+ Exchange-Correlation Parameters \*+/ ) {
+            my @line = split(":", $_, 2);
+            next if /^\s*\*|^\s*$/;
+            if( @line == 2 ) {
+                $line[0] =~ s/^\s*|\s*$//g;
+                $line[0] =~ s/\s+/_/g;
+                $line[0] = "_castep_" . $line[0];
+                $line[1] =~ s/^\s*|\s*$//g;
+                $log_data{$line[0]} = $line[1];
+            }
+        }
+
 
     }
 
@@ -76,4 +89,15 @@ for my $filename (@ARGV) {
         if $log_data{program};
     print "_tcod_software_package_version ", $log_data{version}, "\n"
         if $log_data{version};
+
+    for my $key (sort grep /^_castep_/, keys %log_data) {
+        my $value = $log_data{$key};
+        print $key, " ", $value !~ /\s/ ? $value : "'$value'", "\n";
+    }
+
+    print "_tcod_computation_log_file\n";
+    print "; \\\n";
+    map { print " ", $_ } @log_lines;
+    print ";\n";
+
 }
