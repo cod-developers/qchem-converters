@@ -61,7 +61,7 @@ for my $filename (@ARGV) {
                 ( $vstring[-2], $vstring[-4] );
         }
         if( /^\s*\*+ General Parameters \*+/...
-            /^\s*\*+ Exchange-Correlation Parameters \*+/ ) {
+            /^\s*\*{79,}\s*$/ ) {
             my @line = split(":", $_, 2);
             next if /^\s*\*|^\s*$/;
             if( @line == 2 ) {
@@ -72,8 +72,6 @@ for my $filename (@ARGV) {
                 $log_data{$line[0]} = $line[1];
             }
         }
-
-
     }
 
     close( LOG ) or die( "error reading file '$filename': " . lcfirst($!) );
