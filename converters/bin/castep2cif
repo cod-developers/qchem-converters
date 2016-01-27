@@ -1,0 +1,79 @@
+#! /bin/sh
+#!perl # --*- Perl -*--
+eval 'exec perl -x $0 ${1+"$@"}'
+    if 0;
+#------------------------------------------------------------------------------
+#$Author$
+#$Date$ 
+#$Revision$
+#$URL$
+#------------------------------------------------------------------------------
+#*
+#  Convert a CASTEP output file to CIF format.
+#**
+
+use strict;
+use warnings;
+
+use File::Basename;
+use SOptions;
+use SUsage;
+
+my $Id = '$Id$';
+
+#* USAGE:
+#*    $0 --options abinit*.out > output.cif
+#* 
+#* OPTIONS:
+#*
+#*   --help,--usage         Print a short usage message (this message) and exit.
+#**
+
+@ARGV = getOptions( 
+    "--options" => sub {
+        print <<EOF;
+$0: the "--options" option is a placeholder where you can put
+any options supported by the $0 program. 
+Please see the option list below:
+EOF
+
+        SUsage::usage; exit
+    },
+    "--help,--usage" => sub { SUsage::usage; exit },
+);
+
+@ARGV = ( "-" ) unless @ARGV;
+
+for my $filename (@ARGV) {
+    open( LOG, $filename ) or
+        die "could not open '$filename' for reading: ", lcfirst($!);
+
+    my @log_lines;
+    my %log_data;
+    my %flags;
+
+    while(<LOG>) {
+        push( @log_lines, $_ );
+
+        if( /^\s\|\s.*CASTEP\sversion/ ) {
+            my @vstring = split;
+            ( $log_data{version}, $log_data{program} ) =
+                ( $vstring[-2], $vstring[-4] );
+        }
+
+    }
+
+    close( LOG ) or die( "error reading file '$filename': " . lcfirst($!) );
+
+    my $data_name =
+        File::Basename::basename( $filename, ('.log', '.dat', '.out'));
+
+    print "data_", $data_name, "\n";
+
+    print "_audit_creation_method '", $Id, "'\n";
+
+    print "_tcod_software_package ", $log_data{program}, "\n"
+        if $log_data{program};
+    print "_tcod_software_package_version ", $log_data{version}, "\n"
+        if $log_data{version};
+}
