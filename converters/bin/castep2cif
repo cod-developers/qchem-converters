@@ -22,7 +22,7 @@ use SUsage;
 my $Id = '$Id$';
 
 #* USAGE:
-#*    $0 --options abinit*.out > output.cif
+#*    $0 --options output*.castep > output.cif
 #* 
 #* OPTIONS:
 #*
