@@ -1,0 +1,33 @@
+#######################################################
+#CASTEP param file: castep.param
+#Created using the Atomic Simulation Environment (ASE)#
+# Internal settings of the calculator
+# This can be switched off by settings
+# calc._export_settings = False
+# If stated, this will be automatically processed
+# by ase.io.castep.read_seed()
+# ASE_INTERFACE _castep_command : /Users/martinastella/CASTEP/CASTEP-16.1/obj/darwin_x86_64_gfortran4.8/castep.serial
+# ASE_INTERFACE _castep_pp_path : /Users/martinastella/Nomad/CASTEP_parser/Si2
+# ASE_INTERFACE _check_checkfile : True
+# ASE_INTERFACE _copy_pspots : False
+# ASE_INTERFACE _directory : /Users/martinastella/Nomad/CASTEP_parser/Si2/CASTEP
+# ASE_INTERFACE _export_settings : True
+# ASE_INTERFACE _force_write : True
+# ASE_INTERFACE _label : castep
+# ASE_INTERFACE _link_pspots : True
+# ASE_INTERFACE _pedantic : False
+# ASE_INTERFACE _prepare_input_only : False
+# ASE_INTERFACE _rename_existing_dir : True
+# ASE_INTERFACE _set_atoms : False
+# ASE_INTERFACE _track_output : False
+# ASE_INTERFACE _try_reuse : False
+#######################################################
+
+basis_precision : MEDIUM
+calculate_densdiff : True
+fix_occupancy : True
+num_dump_cycles : 0
+opt_strategy : speed
+task : singlepoint
+write_formatted_density : True
+xc_functional : LDA

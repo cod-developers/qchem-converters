@@ -1,0 +1,21 @@
+#######################################################
+#CASTEP cell file: castep.cell
+#Created using the Atomic Simulation Environment (ASE)#
+#######################################################
+
+%BLOCK LATTICE_CART
+    2.6954645000 2.6954645000 0.0000000000
+    2.6954645000 0.0000000000 2.6954645000
+    0.0000000000 2.6954645000 2.6954645000
+%ENDBLOCK LATTICE_CART
+
+
+%BLOCK POSITIONS_ABS
+    Si 0.000000 0.000000 0.000000
+    Si 1.347732 1.347732 1.347732
+%ENDBLOCK POSITIONS_ABS
+
+%BLOCK SPECIES_POT
+
+Si Si_00.usp
+%ENDBLOCK SPECIES_POT

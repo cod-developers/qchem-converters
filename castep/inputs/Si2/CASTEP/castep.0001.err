@@ -1,0 +1,5 @@
+Error: ion_atom_inquire_usp: file "Si_00.usp" not found
+Current trace stack:
+ ion_atom_inquire_usp
+ ion_read
+ castep
