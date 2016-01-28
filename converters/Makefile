@@ -18,7 +18,7 @@ PERL5LIB := ${TOP}/lib/perl5:${PERL5LIB}
 export PERL5LIB
 
 # Directory where the tested scripts reside:
-SCRIPT_DIR = ./bin
+SCRIPT_DIR = ./scripts
 
 .PRECIOUS: %.pm
 
