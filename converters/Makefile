@@ -87,7 +87,7 @@ ALL_INPUTS = $(wildcard ${TEST_DIR}/*.*)
 #------------------------------------------------------------------------------
 
 define filter_perl_messages
-perl -pe 's/Id: [-\w]+ \d+ [-\d]+ [:\dZ]+ \w+/Id: <script_name> <revision_nr> <date> <time> <author>/' \
+perl -pe 's/\$$Id(: [-\w]+ \d+ [-\d]+ [:\dZ]+ \w+\s+)?\$$/\$$Id: <script_name> <revision_nr> <date> <time> <author> \$$/' \
 | perl -pe 's,at [-\.\/\w\d]+ line \d+\.,at <script_name> line <line_no>.,' \
 | perl -pe 's/Use of uninitialized value [^\s]+ in/Use of uninitialized value in/g' \
 | perl -pe 's/(Use of uninitialized value in pattern match \(m\/\/\) at )([a-zA-Z0-9\-\/]+)\/([a-zA-Z0-9\-\.]+) line \d+, <([^>])+> line \d+/$$1$$3 line <line_no>/g'
