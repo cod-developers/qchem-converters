@@ -1,0 +1,14 @@
+data_castep2cif_002.inp
+_audit_creation_method '$Id: <script_name> <revision_nr> <date> <time> <author> $'
+_cell_length_a 3.811962
+_cell_length_b .811962
+_cell_length_c 3.
+_cell_angle_alpha 60.000000
+_cell_angle_beta  60.000000
+_cell_angle_gamma 60.000000
+_tcod_computation_log_file
+; \
+                     a =    3.811962         alpha =   6.0000000E1
+                     b =    .811962          beta  =   .60000000E+2
+                     c =    3.               gamma =   600.0e-1
+;

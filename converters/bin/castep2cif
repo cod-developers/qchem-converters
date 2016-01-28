@@ -21,7 +21,7 @@ use SUsage;
 
 my $Id = '$Id$';
 
-my $number = '[-+]?(?:\d+\.?\d*|\.\d+)(?:eE[-+]?\d+)?';
+my $number = '[-+]?(?:\d+\.?\d*|\.\d+)(?:[eE][-+]?\d+)?';
 
 
 #* USAGE:
@@ -78,7 +78,7 @@ for my $filename (@ARGV) {
             }
         }
 
-        if( /^\s+(a|b|c) = +($number) +(alpha|beta|gamma) = +($number)/ ) {
+        if( /^\s+(a|b|c) = +($number) +(alpha|beta|gamma) += +($number)/ ) {
             push( @cell, $2 );
             push( @cell_angles, $4 );
         }
