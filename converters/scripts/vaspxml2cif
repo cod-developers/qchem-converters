@@ -1,0 +1,93 @@
+#! /bin/sh
+#!perl -w # --*- Perl -*--
+eval 'exec perl -x $0 ${1+"$@"}'
+    if 0;
+#------------------------------------------------------------------------------
+#$Author$
+#$Date$ 
+#$Revision$
+#$URL$
+#------------------------------------------------------------------------------
+#*
+#  Extract data from VASP XML log files and
+#  print them out in CIF (http://www.iucr.org/resources/cif) format
+#  using TCOD (http://www.crystallography.net/tcod/) dictionaries
+#  (http://www.crystallography.net/tcod/cif/dictionaries/)
+#**
+
+use strict;
+use COD::AtomProperties;
+use COD::Cell qw( vectors2cell );
+use COD::CIF::Tags::Print qw( print_single_tag_and_value );
+use File::Basename qw( basename );
+use SOptions;
+use SUsage;
+use XML::Simple;
+
+#* USAGE:
+#*    $0 --options vasprun*.xml > output.cif
+#* 
+#* OPTIONS:
+#*   --help,--usage         Print a short usage message (this message) and exit.
+#**
+
+@ARGV = getOptions(
+    "--options" => sub {
+        print <<EOF;
+$0: the "--options" option is a placeholder where you can put
+any options supported by the $0 program. 
+Please see the option list below:
+EOF
+
+        SUsage::usage; exit
+    },
+    "--help,--usage" => sub { SUsage::usage; exit },
+);
+
+@ARGV = ( "-" ) unless @ARGV;
+
+for my $filename (@ARGV) {
+    my $data = XMLin( $filename );
+
+    my $data_name =
+        basename( $filename, ('.log', '.dat', '.out', '.xml'));
+
+    my @atom_names = map { $_->{c}[0] =~ /(\S+)/; $1 }
+                         @{$data->{atominfo}{array}{atoms}{set}{rc}};
+    my @initial_coords = map { [ (split( /\s+/, $_ ))[1..3] ] }
+                             @{$data->{structure}{initialpos}{varray}{v}};
+    my @final_coords   = map { [ (split( /\s+/, $_ ))[1..3] ] }
+                             @{$data->{structure}{finalpos}{varray}{v}};
+
+    my @initial_vectors = map { [ (split( /\s+/, $_ ))[1..3] ] }
+                              @{$data->{structure}{initialpos}{crystal}{varray}{basis}{v}};
+    my @final_vectors   = map { [ (split( /\s+/, $_ ))[1..3] ] }
+                              @{$data->{structure}{finalpos}{crystal}{varray}{basis}{v}};
+
+    my @initial_cell = vectors2cell( @initial_vectors );
+    my @final_cell = vectors2cell( @final_vectors );
+
+    print 'data_', $data_name, "\n";
+
+    print_single_tag_and_value( '_cell_length_a', $final_cell[0] );
+    print_single_tag_and_value( '_cell_length_b', $final_cell[1] );
+    print_single_tag_and_value( '_cell_length_c', $final_cell[2] );
+    print_single_tag_and_value( '_cell_angle_alpha', $final_cell[3] );
+    print_single_tag_and_value( '_cell_angle_beta',  $final_cell[4] );
+    print_single_tag_and_value( '_cell_angle_gamma', $final_cell[5] );
+
+    local $, = ' ';
+    local $\ = "\n";
+
+    print 'loop_';
+    print '_atom_site_type_symbol';
+    print '_atom_site_fract_x';
+    print '_atom_site_fract_y';
+    print '_atom_site_fract_z';
+    print '_tcod_atom_site_initial_fract_x';
+    print '_tcod_atom_site_initial_fract_y';
+    print '_tcod_atom_site_initial_fract_z';
+    for my $i (0..$#atom_names) {
+        print $atom_names[$i], @{$final_coords[$i]}, @{$initial_coords[$i]};
+    }
+}
