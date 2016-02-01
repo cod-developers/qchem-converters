@@ -64,6 +64,9 @@ for my $filename (@ARGV) {
     my @final_vectors   = map { [ (split( /\s+/, $_ ))[1..3] ] }
                               @{$data->{structure}{finalpos}{crystal}{varray}{basis}{v}};
 
+    my @forces = map { [ (split( /\s+/, $_ ))[1..3] ] }
+                     @{$data->{calculation}[-1]{varray}{v}};
+
     my @initial_cell = vectors2cell( @initial_vectors );
     my @final_cell = vectors2cell( @final_vectors );
 
@@ -87,7 +90,12 @@ for my $filename (@ARGV) {
     print '_tcod_atom_site_initial_fract_x';
     print '_tcod_atom_site_initial_fract_y';
     print '_tcod_atom_site_initial_fract_z';
+    print '_tcod_atom_site_resid_force_Cartn_x';
+    print '_tcod_atom_site_resid_force_Cartn_y';
+    print '_tcod_atom_site_resid_force_Cartn_z';
+
     for my $i (0..$#atom_names) {
-        print $atom_names[$i], @{$final_coords[$i]}, @{$initial_coords[$i]};
+        print $atom_names[$i], @{$final_coords[$i]},
+              @{$initial_coords[$i]}, @{$forces[$i]};
     }
 }
