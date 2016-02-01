@@ -24,6 +24,17 @@ use SOptions;
 use SUsage;
 use XML::Simple;
 
+my %smearing_methods = (
+     0 => { main  => 'Gaussian' },
+    -1 => { main  => 'Fermi-Dirac' },
+    -2 => { other => 'partial occupancies are read in from the ' .
+                     'WAVECAR or INCAR file' },
+    -3 => { other => 'loop over smearing-parameters supplied in the ' .
+                     'INCAR file is performed' },
+    -4 => { other => 'tetrahedron method' },
+    -5 => { other => 'tetrahedron method with Bl\"ochl corrections' }
+);
+
 #* USAGE:
 #*    $0 --options vasprun*.xml > output.cif
 #* 
@@ -78,6 +89,49 @@ for my $filename (@ARGV) {
     print_single_tag_and_value( '_cell_angle_alpha', $final_cell[3] );
     print_single_tag_and_value( '_cell_angle_beta',  $final_cell[4] );
     print_single_tag_and_value( '_cell_angle_gamma', $final_cell[5] );
+
+    my $electronic_params = $data->{parameters}{separator}{electronic};
+    my %electronic_params_tags = (
+        EDIFF  => '_dft_cell_energy_conv',
+        ENMAX  => '_dft_kinetic_energy_cutoff_wavefunctions',
+        NELECT => '_dft_cell_valence_electrons',
+    );
+    for my $key (sort keys %electronic_params_tags) {
+        next if !exists $electronic_params->{i}{$key};
+        my $value = $electronic_params->{i}{$key}{content};
+        $value =~ s/\s//g;
+        print_single_tag_and_value( $electronic_params_tags{$key}, $value );
+    }
+
+    if( $electronic_params->{separator}{'electronic smearing'} ) {
+        my $ismear = $electronic_params->{separator}{'electronic smearing'}
+                                         {i}{ISMEAR}{content};
+        my $sigma  = $electronic_params->{separator}{'electronic smearing'}
+                                         {i}{SIGMA}{content};
+
+        $ismear =~ s/\s//g;
+        $sigma =~ s/\s//g;
+
+        if( $ismear > 0 ) {
+            print_single_tag_and_value(
+                '_dft_BZ_integration_smearing_method',
+                'Methfessel-Paxton' );
+            print_single_tag_and_value(
+                '_dft_BZ_integration_MP_order', $ismear );
+        } elsif( exists $smearing_methods{$ismear} ) {
+            if( exists $smearing_methods{$ismear}->{main} ) {
+                print_single_tag_and_value(
+                    '_dft_BZ_integration_smearing_method',
+                    $smearing_methods{$ismear}->{main} );
+            } else {
+                print_single_tag_and_value(
+                    '_dft_BZ_integration_smearing_method_other',
+                    $smearing_methods{$ismear}->{other} );
+            }
+        }
+        print_single_tag_and_value( '_dft_BZ_integration_smearing_width',
+                                    $sigma );
+    }
 
     local $, = ' ';
     local $\ = "\n";

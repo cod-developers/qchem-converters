@@ -5,6 +5,12 @@ _cell_length_c                   21.20531214
 _cell_angle_alpha                90
 _cell_angle_beta                 90
 _cell_angle_gamma                119.999999985754
+_dft_cell_energy_conv            0.00001000
+_dft_kinetic_energy_cutoff_wavefunctions 600.00000000
+_dft_cell_valence_electrons      96.00000000
+_dft_BZ_integration_smearing_method_other
+'tetrahedron method with Bl\"ochl corrections'
+_dft_BZ_integration_smearing_width 0.10000000
 loop_
 _atom_site_type_symbol
 _atom_site_fract_x
