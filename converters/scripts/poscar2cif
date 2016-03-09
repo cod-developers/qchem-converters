@@ -33,9 +33,13 @@ for my $filename (@ARGV) {
 
     my( $a, $b, $c, $alpha, $beta, $gamma ) = vectors2cell( @vectors );
 
-    my $dataname = ( split /\s+/, $label )[0];
-
-    print "data_$dataname\n";
+    $label =~ s/[^a-zA-Z0-9_+-\.\s]+/_/g;
+    my $label_first_part = ( split /\s+/, $label )[0];
+    $label =~ s/\s+/_/g;
+    if( length( $label ) > 80 ) {
+        $label = $label_first_part;
+    }
+    print "data_$label\n";
 
     print_single_tag_and_value( '_cell_length_a', $a );
     print_single_tag_and_value( '_cell_length_b', $b );
