@@ -1,0 +1,13 @@
+data_O
+_cell_length_a 8
+_cell_length_b 8
+_cell_length_c 8
+_cell_angle_alpha 90
+_cell_angle_beta 90
+_cell_angle_gamma 90
+loop_
+_atom_site_Cartn_x
+_atom_site_Cartn_y
+_atom_site_Cartn_z
+0 0 0
+0 0 1.12

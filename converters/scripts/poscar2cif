@@ -1,0 +1,104 @@
+#!/usr/bin/perl
+
+use strict;
+use warnings;
+use COD::Cell qw( vectors2cell );
+
+for my $filename (@ARGV) {
+    open( my $poscar, $filename );
+    my $label  = read_without_spaces( $poscar );
+    my $factor = read_without_spaces( $poscar );
+
+    my @vectors;
+    for my $i (0..2) {
+        push( @vectors,
+              [ map { $_ * $factor }
+                map { split /\s+/ }
+                    read_without_spaces( $poscar ) ] );
+    }
+
+    my( $a, $b, $c, $alpha, $beta, $gamma ) = vectors2cell( @vectors );
+
+    my $dataname = ( split /\s+/, $label )[0];
+
+    local $\ = "\n";
+    local $, = ' ';
+
+    print "data_$dataname";
+    print '_cell_length_a', $a;
+    print '_cell_length_b', $b;
+    print '_cell_length_c', $c;
+    print '_cell_angle_alpha', $alpha;
+    print '_cell_angle_beta',  $beta;
+    print '_cell_angle_gamma', $gamma;
+
+    local $, = "\n";
+
+    my $natoms = [ split /\s+/, read_without_spaces( $poscar ) ];
+    my $types;
+    if( $natoms && $natoms->[0] !~ /^\d+$/ ) {
+        # Special case when both atom types and numbers are given.
+        # Not sure if it's regular in POSCAR, but can be found at least in
+        # the results of Huan et al. (2015).
+        $types = $natoms;
+        $natoms = [ split /\s+/, read_without_spaces( $poscar ) ];
+    }
+
+    my $coord_type = lc( read_without_spaces( $poscar ) );
+
+    # As per http://cms.mpi.univie.ac.at/vasp/guide/node59.html:
+    $coord_type = 'cartesian' if $coord_type =~ /^[ck]/;
+
+    die "$0: $filename: unknown coordinate conversion type: $coord_type"
+        if $coord_type ne 'direct' && $coord_type ne 'cartesian';
+
+    print 'loop_';
+    print '_atom_site_label' if $types;
+    if( $coord_type eq 'direct' ) {
+        print '_atom_site_fract_x',
+              '_atom_site_fract_y',
+              '_atom_site_fract_z';
+    } else {
+        print '_atom_site_Cartn_x',
+              '_atom_site_Cartn_y',
+              '_atom_site_Cartn_z';
+    }
+
+    local $, = ' ';
+
+    my $type = 0;
+    my $i = 0;
+    while( <$poscar> ) {
+        s/^\s+//;
+        s/!.*$//;
+        s/\s+$//;
+
+        if( $types ) {
+            local $\ = ' ';
+            print $types->[$type] . ($i + 1);
+            $i++;
+            if( $i >= $natoms->[$type] ) {
+                $type++;
+                $i = 0;
+            }
+        }
+
+        my @coord = split /\s+/, $_;
+        if( $coord_type eq 'cartesian' ) {
+            @coord = map { $_ * $factor } @coord;
+        }
+        print @coord;
+    }
+
+    close( $poscar );
+}
+
+sub read_without_spaces
+{
+    my( $handle ) = @_;
+    my $line = <$handle>;
+    $line =~ s/^\s+//;
+    $line =~ s/!.*$//;
+    $line =~ s/\s+$//;
+    return $line;
+}
