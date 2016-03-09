@@ -5,16 +5,28 @@ use warnings;
 use COD::Cell qw( vectors2cell );
 
 for my $filename (@ARGV) {
-    open( my $poscar, $filename );
-    my $label  = read_without_spaces( $poscar );
-    my $factor = read_without_spaces( $poscar );
+    open( my $inp, $filename );
+    my @poscar_raw = <$inp>;
+    close( $inp );
+
+    my @poscar;
+    foreach( @poscar_raw ) {
+        my $line = $_;
+        $line =~ s/^\s+//;
+        $line =~ s/!.*$//;
+        $line =~ s/\s+$//;
+        push @poscar, $line;
+    }
+
+    my $label  = shift @poscar;
+    my $factor = shift @poscar;
 
     my @vectors;
     for my $i (0..2) {
         push( @vectors,
               [ map { $_ * $factor }
                 map { split /\s+/ }
-                    read_without_spaces( $poscar ) ] );
+                    shift @poscar ] );
     }
 
     my( $a, $b, $c, $alpha, $beta, $gamma ) = vectors2cell( @vectors );
@@ -34,17 +46,17 @@ for my $filename (@ARGV) {
 
     local $, = "\n";
 
-    my $natoms = [ split /\s+/, read_without_spaces( $poscar ) ];
+    my $natoms = [ split /\s+/, shift @poscar ];
     my $types;
     if( $natoms && $natoms->[0] !~ /^\d+$/ ) {
         # Special case when both atom types and numbers are given.
         # Not sure if it's regular in POSCAR, but can be found at least in
         # the results of Huan et al. (2015).
         $types = $natoms;
-        $natoms = [ split /\s+/, read_without_spaces( $poscar ) ];
+        $natoms = [ split /\s+/, shift @poscar ];
     }
 
-    my $coord_type = lc( read_without_spaces( $poscar ) );
+    my $coord_type = lc shift @poscar;
 
     # As per http://cms.mpi.univie.ac.at/vasp/guide/node59.html:
     $coord_type = 'cartesian' if $coord_type =~ /^[ck]/;
@@ -68,11 +80,7 @@ for my $filename (@ARGV) {
 
     my $type = 0;
     my $i = 0;
-    while( <$poscar> ) {
-        s/^\s+//;
-        s/!.*$//;
-        s/\s+$//;
-
+    foreach( @poscar ) {
         if( $types ) {
             local $\ = ' ';
             print $types->[$type] . ($i + 1);
@@ -90,15 +98,17 @@ for my $filename (@ARGV) {
         print @coord;
     }
 
-    close( $poscar );
-}
+    print '_tcod_computation_log_file';
+    print ';';
 
-sub read_without_spaces
-{
-    my( $handle ) = @_;
-    my $line = <$handle>;
-    $line =~ s/^\s+//;
-    $line =~ s/!.*$//;
-    $line =~ s/\s+$//;
-    return $line;
+    undef $,;
+    undef $\;
+    print @poscar_raw;
+
+    # Add newline, if the input file does not end with one:
+    if( $poscar_raw[-1] !~ /\n$/ ) {
+        print "\n";
+    }
+
+    print ";\n";
 }
