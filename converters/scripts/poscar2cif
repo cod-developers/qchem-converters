@@ -3,6 +3,8 @@
 use strict;
 use warnings;
 use COD::Cell qw( vectors2cell );
+use COD::CIF::Tags::Print qw( print_single_tag_and_value );
+use COD::Formulae::Print qw( sprint_formula );
 
 for my $filename (@ARGV) {
     open( my $inp, $filename );
@@ -33,18 +35,14 @@ for my $filename (@ARGV) {
 
     my $dataname = ( split /\s+/, $label )[0];
 
-    local $\ = "\n";
-    local $, = ' ';
+    print "data_$dataname\n";
 
-    print "data_$dataname";
-    print '_cell_length_a', $a;
-    print '_cell_length_b', $b;
-    print '_cell_length_c', $c;
-    print '_cell_angle_alpha', $alpha;
-    print '_cell_angle_beta',  $beta;
-    print '_cell_angle_gamma', $gamma;
-
-    local $, = "\n";
+    print_single_tag_and_value( '_cell_length_a', $a );
+    print_single_tag_and_value( '_cell_length_b', $b );
+    print_single_tag_and_value( '_cell_length_c', $c );
+    print_single_tag_and_value( '_cell_angle_alpha', $alpha );
+    print_single_tag_and_value( '_cell_angle_beta',  $beta );
+    print_single_tag_and_value( '_cell_angle_gamma', $gamma );
 
     my $natoms = [ split /\s+/, shift @poscar ];
     my $types;
@@ -55,6 +53,17 @@ for my $filename (@ARGV) {
         $types = $natoms;
         $natoms = [ split /\s+/, shift @poscar ];
     }
+
+    if( $types ) {
+        my %formula_hash;
+        @formula_hash{@$types} = @$natoms;
+
+        print_single_tag_and_value( '_chemical_formula_sum',
+                                    sprint_formula( \%formula_hash ) );
+    }
+
+    local $\ = "\n";
+    local $, = "\n";
 
     my $coord_type = lc shift @poscar;
 
@@ -98,17 +107,9 @@ for my $filename (@ARGV) {
         print @coord;
     }
 
-    print '_tcod_computation_log_file';
-    print ';';
-
     undef $,;
     undef $\;
-    print @poscar_raw;
-
-    # Add newline, if the input file does not end with one:
-    if( $poscar_raw[-1] !~ /\n$/ ) {
-        print "\n";
-    }
-
-    print ";\n";
+    $poscar_raw[-1] =~ s/\n$//;
+    print_single_tag_and_value( '_tcod_computation_log_file',
+                                join( '', @poscar_raw ) );
 }

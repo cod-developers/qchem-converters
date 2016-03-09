@@ -1,10 +1,11 @@
 data_cod-2001647
-_cell_length_a 10.2790677198067
-_cell_length_b 6.5713375514808
-_cell_length_c 5.95130412114194
-_cell_angle_alpha 65.3450435264615
-_cell_angle_beta 71.8752903606206
-_cell_angle_gamma 73.0368837674943
+_cell_length_a                   10.2790677198067
+_cell_length_b                   6.5713375514808
+_cell_length_c                   5.95130412114194
+_cell_angle_alpha                65.3450435264615
+_cell_angle_beta                 71.8752903606206
+_cell_angle_gamma                73.0368837674943
+_chemical_formula_sum            'C16 H20 O8'
 loop_
 _atom_site_label
 _atom_site_fract_x
@@ -55,8 +56,7 @@ O6 1.2435830000E-01 8.7070170000E-01 6.5399050000E-01
 O7 9.2810310000E-01 2.3072240000E-01 6.2406180000E-01
 O8 7.1895880000E-02 7.6927610000E-01 3.7593910000E-01
 _tcod_computation_log_file
-;
-cod-2001647       6.4334275E+00 3.7676000E+00 2.7393300E+00 5.4144500E-01 3.2807750E+00    #! label, atEnergy (eV), egap (eV), eps_elec, eps_ion, eps_tot
+;cod-2001647       6.4334275E+00 3.7676000E+00 2.7393300E+00 5.4144500E-01 3.2807750E+00    #! label, atEnergy (eV), egap (eV), eps_elec, eps_ion, eps_tot
 1.0
   1.0276490000E+01   1.6515830000E-01   1.6034090000E-01
   1.8177520000E+00   6.3141700000E+00  -9.7529960000E-02
