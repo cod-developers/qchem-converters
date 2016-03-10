@@ -10,7 +10,7 @@ set -ue
 
 BASENAME="`basename $0 .com`"
 
-OUTPUT_XML=./outputs/${BASENAME}.in.xml
+OUTPUT_CTRL=./outputs/${BASENAME}.in
 OUTPUT_DAT=./outputs/${BASENAME}.out
 
 #END DEPEND--------------------------------------------------------------------
@@ -23,101 +23,46 @@ PSEUDO_DIR=/usr/share/espresso/pseudo
 
 set -x
 
-cat > ${OUTPUT_XML} <<EOF
-<?xml version="1.0" encoding="UTF-8"?>
-<input calculation="relax" prefix="CO">
-
-  <cell type="matrix" sym="cubic" units="angstrom">
-    <matrix>
-      <real rank="2" n1="3" n2="3">				
-        12.0  0.0  0.0
-        0.0 12.0  0.0
-        0.0  0.0 12.0
-      </real>
-    </matrix>
-  </cell>
-
-  <atomic_species ntyp="2">
-    <specie name="O">
-      <property name="mass">
-        <real>1.00</real>
-      </property>
-      <property name="pseudofile">
-        <string>O.pz-rrkjus.UPF</string>
-      </property>
-    </specie>
-    <specie name="C">
-      <property name="mass">
-        <real>1.00</real>
-      </property>
-      <property name="pseudofile">
-        <string>C.pz-rrkjus.UPF</string>
-      </property>
-    </specie>
-  </atomic_species>
-
-  <atomic_list units="bohr" nat="2" >
-    <atom name="C">
-      <position>
-        <real rank="1" n1="3">
-          2.256  0.0  0.0
-        </real>
-      </position>
-    </atom>	
-    <atom name="O">
-      <position ifx="0" ify="0" ifz="0">
-        <real rank="1" n1="3">
-          0.000  0.0  0.0
-        </real>
-      </position>
-    </atom>		
-  </atomic_list>		
-  
-  <field name="InputOutput">
-
-    <parameter name="pseudo_dir">
-      <string>$PSEUDO_DIR/</string>
-    </parameter>
-    
-    <parameter name="outdir">
-      <string>./tmp/</string>
-    </parameter>
-    
-  </field>
-  
-  <field name="Numerics">
-
-    <parameter name="ecutwfc">
-      <real>24.D0</real>
-    </parameter>
-    
-    <parameter name="ecutrho">
-      <real>144.D0</real>
-    </parameter>
-    
-    <parameter name="conv_thr">
-      <real>1.D-7</real>
-    </parameter>
-    
-    <parameter name="mixing_beta">
-      <real>0.7D0</real>
-    </parameter>
-    
-  </field>
-  
-  <k_points type="gamma">	
-  </k_points>
-  
-</input>
+cat > ${OUTPUT_CTRL} <<EOF
+&CONTROL
+  calculation  = "relax",
+  prefix       = "CO",
+  pseudo_dir   = "$PSEUDO_DIR",
+  outdir       = "$TMP_DIR",
+/
+&SYSTEM
+  ibrav     = 0,
+  nat       = 2,
+  ntyp      = 2,
+  ecutwfc   = 24.D0,
+  ecutrho   = 144.D0,
+/
+&ELECTRONS
+  conv_thr    = 1.D-7,
+  mixing_beta = 0.7D0,
+/
+&IONS
+/
+CELL_PARAMETERS cubic
+12.0  0.0  0.0
+ 0.0 12.0  0.0
+ 0.0  0.0 12.0
+ATOMIC_SPECIES
+O  1.00  O.pz-rrkjus.UPF
+C  1.00  C.pz-rrkjus.UPF
+ATOMIC_POSITIONS {bohr}
+C  2.256  0.0  0.0
+O  0.000  0.0  0.0  0 0 0
+K_POINTS {Gamma}
 EOF
 
 set -x
 
-cp ${OUTPUT_XML} ${TMP_DIR}
+cp ${OUTPUT_CTRL} ${TMP_DIR}
 
 (
     cd ${TMP_DIR}
-    pw.x < $(basename ${OUTPUT_XML}) | tee $(basename ${OUTPUT_DAT})
+    pw.x < $(basename ${OUTPUT_CTRL}) | tee $(basename ${OUTPUT_DAT})
 )
 
 tree ${TMP_DIR}

@@ -1,3 +1,29 @@
+#!/bin/sh
+
+TMP_DIR="${TMPDIR}"
+
+setvar() { eval $1="'$3'"; }
+
+set -ue
+
+#BEGIN DEPEND------------------------------------------------------------------
+
+BASENAME="`basename $0 .com`"
+
+OUTPUT_XML=./outputs/${BASENAME}.in.xml
+OUTPUT_DAT=./outputs/${BASENAME}.out
+
+#END DEPEND--------------------------------------------------------------------
+
+test -z "${TMP_DIR}" && TMP_DIR="."
+TMP_DIR="${TMP_DIR}/tmp-${BASENAME}-$$"
+mkdir "${TMP_DIR}"
+
+PSEUDO_DIR=/usr/share/espresso/pseudo
+
+set -x
+
+cat > ${OUTPUT_XML} <<EOF
 <?xml version="1.0" encoding="UTF-8"?>
 <input calculation="relax" prefix="CO">
 
@@ -50,7 +76,7 @@
   <field name="InputOutput">
 
     <parameter name="pseudo_dir">
-      <string>/usr/share/espresso/pseudo/</string>
+      <string>$PSEUDO_DIR/</string>
     </parameter>
     
     <parameter name="outdir">
@@ -83,3 +109,19 @@
   </k_points>
   
 </input>
+EOF
+
+set -x
+
+cp ${OUTPUT_XML} ${TMP_DIR}
+
+(
+    cd ${TMP_DIR}
+    pw.x < $(basename ${OUTPUT_XML}) | tee $(basename ${OUTPUT_DAT})
+)
+
+tree ${TMP_DIR}
+
+mv ${TMP_DIR}/$(basename ${OUTPUT_DAT}) ${OUTPUT_DAT}
+
+rm -rf "${TMP_DIR}"
