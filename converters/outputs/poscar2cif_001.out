@@ -5,7 +5,14 @@ _cell_length_c                   5.95130412114194
 _cell_angle_alpha                65.3450435264615
 _cell_angle_beta                 71.8752903606206
 _cell_angle_gamma                73.0368837674943
+_cell_formula_units_Z            1
+_space_group_IT_number           1
+_space_group_name_Hall           'P 1'
+_space_group_name_H-M_alt        'P 1'
 _chemical_formula_sum            'C16 H20 O8'
+loop_
+_space_group_symop_operation_xyz
+x,y,z
 loop_
 _atom_site_label
 _atom_site_fract_x
