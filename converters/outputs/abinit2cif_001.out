@@ -1,5 +1,5 @@
 data_abinit2cif_001.inp
-_audit_creation_method '$Id: <script_name> <revision_nr> <date> <time> <author> $'
+_audit_creation_method 'Id: abinit2cif 57 2016-01-28 14:28:42Z saulius'
 _tcod_software_package ABINIT
 _tcod_software_package_version 5.3.4
 _tcod_computation_CPU_time 0.7

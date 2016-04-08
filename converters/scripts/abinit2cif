@@ -238,7 +238,10 @@ for my $filename (@ARGV) {
 
     print "data_", $data_name, "\n";
 
-    print "_audit_creation_method '", $Id, "'\n";
+    my $audit_Id = $Id;
+    $audit_Id =~ s/^\$|\s*\$$//g;
+
+    print "_audit_creation_method '", $audit_Id, "'\n";
 
     print "_tcod_software_package ", $log_data{program}, "\n"
         if $log_data{program};
