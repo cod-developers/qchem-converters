@@ -1,5 +1,5 @@
 data_castep2cif_001.inp
-_audit_creation_method '$Id: <script_name> <revision_nr> <date> <time> <author> $'
+_audit_creation_method 'Id: castep2cif 57 2016-01-28 14:28:42Z saulius'
 _tcod_software_package CASTEP
 _tcod_software_package_version 16.1
 _cell_length_a 3.811962

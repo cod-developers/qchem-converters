@@ -1,5 +1,5 @@
 data_castep2cif_002.inp
-_audit_creation_method '$Id: <script_name> <revision_nr> <date> <time> <author> $'
+_audit_creation_method 'Id: castep2cif 57 2016-01-28 14:28:42Z saulius'
 _cell_length_a 3.811962
 _cell_length_b .811962
 _cell_length_c 3.
