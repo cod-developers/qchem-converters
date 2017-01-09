@@ -2,7 +2,7 @@
   calculation  = "relax",
   prefix       = "CO",
   pseudo_dir   = "/home/andrius/SSSP_acc_PBE",
-  outdir       = "./tmp-cod2222222-mpi-193878",
+  outdir       = "./tmp-cod2222222-mpi-dplace-241907",
   nstep        = 1,
 /
 &SYSTEM

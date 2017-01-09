@@ -1,8 +1,34 @@
+#!/bin/sh
+
+TMP_DIR="${TMPDIR}"
+
+setvar() { eval $1="'$3'"; }
+
+set -ue
+
+#BEGIN DEPEND------------------------------------------------------------------
+
+BASENAME="`basename $0 .com`"
+
+OUTPUT_CTRL=./outputs/${BASENAME}.in
+OUTPUT_DAT=./outputs/${BASENAME}.out
+
+#END DEPEND--------------------------------------------------------------------
+
+test -z "${TMP_DIR}" && TMP_DIR="."
+TMP_DIR="${TMP_DIR}/tmp-${BASENAME}-$$"
+mkdir "${TMP_DIR}"
+
+PSEUDO_DIR=/home/andrius/SSSP_acc_PBE
+
+set -x
+
+cat > ${OUTPUT_CTRL} <<EOF
 &CONTROL
   calculation  = "relax",
   prefix       = "CO",
-  pseudo_dir   = "/home/andrius/SSSP_acc_PBE",
-  outdir       = "./tmp-cod2222222-mpi-193878",
+  pseudo_dir   = "$PSEUDO_DIR",
+  outdir       = "$TMP_DIR",
   nstep        = 1,
 /
 &SYSTEM
@@ -59,3 +85,25 @@ H 0.2559 -0.1699 0.9696
 C 0.17464 -0.03837 0.96207
 C 0.34843 0.06558 0.89359
 K_POINTS {Gamma}
+EOF
+
+#CELL_PARAMETERS angstrom
+#8.5379 0.0    0.0
+# 0.0   14.696 0.0
+# 0.0   0.0    15.467
+
+set -x
+
+cp ${OUTPUT_CTRL} ${TMP_DIR}
+
+(
+    cd ${TMP_DIR}
+    mpirun -np 64 pw.x < $(basename ${OUTPUT_CTRL}) \
+        | tee $(basename ${OUTPUT_DAT})
+)
+
+tree ${TMP_DIR}
+
+mv ${TMP_DIR}/$(basename ${OUTPUT_DAT}) ${OUTPUT_DAT}
+
+rm -rf "${TMP_DIR}"

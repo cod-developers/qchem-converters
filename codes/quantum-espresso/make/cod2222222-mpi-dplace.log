@@ -1,5 +1,13 @@
++ cat
++ set -x
++ cp ./outputs/cod2222222-mpi-dplace.in ./tmp-cod2222222-mpi-dplace-241907
++ cd ./tmp-cod2222222-mpi-dplace-241907
++ mpirun -np 64 pw.x
+++ basename ./outputs/cod2222222-mpi-dplace.in
+++ basename ./outputs/cod2222222-mpi-dplace.out
++ tee cod2222222-mpi-dplace.out
 
-     Program PWSCF v.6.0 (svn rev. 13079) starts on  9Jan2017 at 15:40:13 
+     Program PWSCF v.6.0 (svn rev. 13079) starts on  9Jan2017 at 17:33: 6 
 
      This program is part of the open-source Quantum ESPRESSO suite
      for quantum simulation of materials; please cite
@@ -379,9 +387,9 @@
      Starting wfc are  584 randomized atomic wfcs
      Checking if some PAW data can be deallocated... 
 
-     total cpu time spent up to now is        4.4 secs
+     total cpu time spent up to now is        8.2 secs
 
-     per-process dynamical memory:    27.6 Mb
+     per-process dynamical memory:    28.0 Mb
 
      Self-consistent Calculation
 
@@ -389,7 +397,7 @@
      Davidson diagonalization with overlap
      ethr =  1.00E-02,  avg # of iterations =  2.0
 
-     total cpu time spent up to now is       11.2 secs
+     total cpu time spent up to now is       20.0 secs
 
      total energy              =   -2347.47973117 Ry
      Harris-Foulkes estimate   =   -2363.89740905 Ry
@@ -399,7 +407,7 @@
      Davidson diagonalization with overlap
      ethr =  4.04E-03,  avg # of iterations =  4.0
 
-     total cpu time spent up to now is       21.2 secs
+     total cpu time spent up to now is       37.4 secs
 
      total energy              =   -2352.33883847 Ry
      Harris-Foulkes estimate   =   -2356.11185534 Ry
@@ -409,7 +417,7 @@
      Davidson diagonalization with overlap
      ethr =  9.88E-04,  avg # of iterations =  4.0
 
-     total cpu time spent up to now is       31.3 secs
+     total cpu time spent up to now is       55.3 secs
 
      total energy              =   -2353.72399008 Ry
      Harris-Foulkes estimate   =   -2354.37136109 Ry
@@ -419,7 +427,7 @@
      Davidson diagonalization with overlap
      ethr =  1.80E-04,  avg # of iterations =  4.0
 
-     total cpu time spent up to now is       41.0 secs
+     total cpu time spent up to now is       73.7 secs
 
      total energy              =   -2353.99969940 Ry
      Harris-Foulkes estimate   =   -2354.17436444 Ry
@@ -429,7 +437,7 @@
      Davidson diagonalization with overlap
      ethr =  6.00E-05,  avg # of iterations =  4.0
 
-     total cpu time spent up to now is       49.4 secs
+     total cpu time spent up to now is       88.4 secs
 
      total energy              =   -2354.07368160 Ry
      Harris-Foulkes estimate   =   -2354.09200040 Ry
@@ -439,7 +447,7 @@
      Davidson diagonalization with overlap
      ethr =  5.78E-06,  avg # of iterations =  4.0
 
-     total cpu time spent up to now is       58.8 secs
+     total cpu time spent up to now is      105.2 secs
 
      total energy              =   -2354.08263529 Ry
      Harris-Foulkes estimate   =   -2354.08528276 Ry
@@ -449,7 +457,7 @@
      Davidson diagonalization with overlap
      ethr =  8.95E-07,  avg # of iterations =  4.0
 
-     total cpu time spent up to now is       68.2 secs
+     total cpu time spent up to now is      121.8 secs
 
      total energy              =   -2354.08386590 Ry
      Harris-Foulkes estimate   =   -2354.08424262 Ry
@@ -459,7 +467,7 @@
      Davidson diagonalization with overlap
      ethr =  1.29E-07,  avg # of iterations =  3.0
 
-     total cpu time spent up to now is       75.9 secs
+     total cpu time spent up to now is      136.3 secs
 
      total energy              =   -2354.08403921 Ry
      Harris-Foulkes estimate   =   -2354.08406465 Ry
@@ -469,7 +477,7 @@
      Davidson diagonalization with overlap
      ethr =  8.23E-09,  avg # of iterations =  4.0
 
-     total cpu time spent up to now is       85.9 secs
+     total cpu time spent up to now is      155.5 secs
 
      total energy              =   -2354.08405194 Ry
      Harris-Foulkes estimate   =   -2354.08406280 Ry
@@ -479,7 +487,7 @@
      Davidson diagonalization with overlap
      ethr =  4.00E-09,  avg # of iterations =  3.0
 
-     total cpu time spent up to now is       92.9 secs
+     total cpu time spent up to now is      168.3 secs
 
      total energy              =   -2354.08405652 Ry
      Harris-Foulkes estimate   =   -2354.08405771 Ry
@@ -489,7 +497,7 @@
      Davidson diagonalization with overlap
      ethr =  3.84E-10,  avg # of iterations =  4.0
 
-     total cpu time spent up to now is      102.4 secs
+     total cpu time spent up to now is      185.5 secs
 
      total energy              =   -2354.08405710 Ry
      Harris-Foulkes estimate   =   -2354.08405757 Ry
@@ -499,7 +507,7 @@
      Davidson diagonalization with overlap
      ethr =  2.04E-10,  avg # of iterations =  4.0
 
-     total cpu time spent up to now is      109.8 secs
+     total cpu time spent up to now is      198.2 secs
 
      End of self-consistent calculation
 
@@ -990,62 +998,125 @@ C        0.152265204   0.566130884   0.893519390
 
      Writing output data file CO.save
 
-     init_run     :      3.53s CPU      3.58s WALL (       1 calls)
-     electrons    :    105.05s CPU    105.43s WALL (       1 calls)
-     update_pot   :      0.94s CPU      0.95s WALL (       1 calls)
-     forces       :      1.97s CPU      1.99s WALL (       1 calls)
+     init_run     :      6.91s CPU      6.98s WALL (       1 calls)
+     electrons    :    189.47s CPU    190.09s WALL (       1 calls)
+     update_pot   :      1.54s CPU      1.57s WALL (       1 calls)
+     forces       :      2.76s CPU      2.78s WALL (       1 calls)
 
      Called by init_run:
-     wfcinit      :      2.45s CPU      2.46s WALL (       1 calls)
-     potinit      :      0.48s CPU      0.49s WALL (       1 calls)
+     wfcinit      :      4.88s CPU      4.89s WALL (       1 calls)
+     potinit      :      0.83s CPU      0.85s WALL (       1 calls)
 
      Called by electrons:
-     c_bands      :     96.05s CPU     96.28s WALL (      12 calls)
-     sum_band     :      5.25s CPU      5.33s WALL (      12 calls)
-     v_of_rho     :      0.35s CPU      0.36s WALL (      14 calls)
-     newd         :      0.74s CPU      0.74s WALL (      14 calls)
-     PAW_pot      :      3.25s CPU      3.25s WALL (      15 calls)
-     mix_rho      :      0.07s CPU      0.08s WALL (      12 calls)
+     c_bands      :    175.20s CPU    175.57s WALL (      12 calls)
+     sum_band     :      7.87s CPU      8.01s WALL (      12 calls)
+     v_of_rho     :      0.51s CPU      0.56s WALL (      14 calls)
+     newd         :      1.22s CPU      1.25s WALL (      14 calls)
+     PAW_pot      :      5.75s CPU      5.75s WALL (      15 calls)
+     mix_rho      :      0.10s CPU      0.11s WALL (      12 calls)
 
      Called by c_bands:
-     init_us_2    :      0.09s CPU      0.09s WALL (      26 calls)
-     regterg      :     95.85s CPU     96.07s WALL (      12 calls)
+     init_us_2    :      0.05s CPU      0.06s WALL (      26 calls)
+     regterg      :    175.01s CPU    175.36s WALL (      12 calls)
 
      Called by sum_band:
-     sum_band:bec :      0.05s CPU      0.06s WALL (      13 calls)
-     addusdens    :      0.58s CPU      0.60s WALL (      12 calls)
+     sum_band:bec :      0.12s CPU      0.12s WALL (      13 calls)
+     addusdens    :      0.86s CPU      0.90s WALL (      12 calls)
 
      Called by *egterg:
-     h_psi        :     22.61s CPU     22.65s WALL (      57 calls)
-     s_psi        :      6.09s CPU      6.09s WALL (      57 calls)
+     h_psi        :     34.20s CPU     34.28s WALL (      57 calls)
+     s_psi        :      9.86s CPU      9.87s WALL (      57 calls)
      g_psi        :      0.01s CPU      0.01s WALL (      44 calls)
-     rdiaghg      :     56.41s CPU     56.39s WALL (      56 calls)
+     rdiaghg      :    104.26s CPU    104.29s WALL (      56 calls)
 
      Called by h_psi:
-     h_psi:pot    :     22.58s CPU     22.63s WALL (      57 calls)
-     h_psi:calbec :      9.27s CPU      9.28s WALL (      57 calls)
-     vloc_psi     :      6.48s CPU      6.51s WALL (      57 calls)
-     add_vuspsi   :      6.83s CPU      6.84s WALL (      57 calls)
+     h_psi:pot    :     34.17s CPU     34.26s WALL (      57 calls)
+     h_psi:calbec :     14.96s CPU     14.96s WALL (      57 calls)
+     vloc_psi     :      9.15s CPU      9.20s WALL (      57 calls)
+     add_vuspsi   :     10.06s CPU     10.09s WALL (      57 calls)
 
      General routines
-     calbec       :     13.74s CPU     13.75s WALL (      74 calls)
-     fft          :      0.55s CPU      0.59s WALL (     230 calls)
-     ffts         :      0.03s CPU      0.05s WALL (      26 calls)
-     fftw         :      7.53s CPU      7.58s WALL (   13468 calls)
-     interpolate  :      0.09s CPU      0.12s WALL (      26 calls)
-     davcio       :      0.00s CPU      0.11s WALL (       2 calls)
+     calbec       :     22.03s CPU     22.03s WALL (      74 calls)
+     fft          :      0.72s CPU      0.85s WALL (     230 calls)
+     ffts         :      0.02s CPU      0.08s WALL (      26 calls)
+     fftw         :     10.21s CPU     10.31s WALL (   13468 calls)
+     interpolate  :      0.11s CPU      0.17s WALL (      26 calls)
+     davcio       :      0.00s CPU      0.12s WALL (       2 calls)
 
      Parallel routines
-     fft_scatter  :      5.83s CPU      5.91s WALL (   13724 calls)
+     fft_scatter  :      6.27s CPU      6.59s WALL (   13724 calls)
 
-     PWSCF        :  1m53.54s CPU     1m54.16s WALL
+     PWSCF        :  3m23.91s CPU     3m24.86s WALL
 
 
-   This run was terminated on:  15:42: 8   9Jan2017            
+   This run was terminated on:  17:36:31   9Jan2017            
 
 =------------------------------------------------------------------------------=
    JOB DONE.
 =------------------------------------------------------------------------------=
+STOP 3
+STOP 3
+STOP 3
+STOP 3
+STOP 3
+STOP 3
+STOP 3
+STOP 3
+STOP 3
+STOP 3
+STOP 3
+STOP 3
+STOP 3
+STOP 3
+STOP 3
+STOP 3
+STOP 3
+STOP 3
+STOP 3
+STOP 3
+STOP 3
+STOP 3
+STOP 3
+STOP 3
+STOP 3
+STOP 3
+STOP 3
+STOP 3
+STOP 3
+STOP 3
+STOP 3
+STOP 3
+STOP 3
+STOP 3
+STOP 3
+STOP 3
+STOP 3
+STOP 3
+STOP 3
+STOP 3
+STOP 3
+STOP 3
+STOP 3
+STOP 3
+STOP 3
+STOP 3
+STOP 3
+STOP 3
+STOP 3
+STOP 3
+STOP 3
+STOP 3
+STOP 3
+STOP 3
+STOP 3
+STOP 3
+STOP 3
+STOP 3
+STOP 3
+STOP 3
+STOP 3
+STOP 3
+STOP 3
 -------------------------------------------------------
 Primary job  terminated normally, but 1 process returned
 a non-zero exit code.. Per user-direction, the job has been aborted.
@@ -1054,6 +1125,95 @@ a non-zero exit code.. Per user-direction, the job has been aborted.
 mpirun detected that one or more processes exited with non-zero status, thus causing
 the job to be terminated. The first process to do so was:
 
-  Process name: [[32864,1],12]
+  Process name: [[50630,1],0]
   Exit code:    3
 --------------------------------------------------------------------------
++ tree ./tmp-cod2222222-mpi-dplace-241907
+./tmp-cod2222222-mpi-dplace-241907
+├── cod2222222-mpi-dplace.in
+├── cod2222222-mpi-dplace.out
+└── tmp-cod2222222-mpi-dplace-241907
+    ├── CO.bfgs
+    ├── CO.save
+    │   ├── B.pbe-n-kjpaw_psl.0.1.UPF
+    │   ├── charge-density.dat
+    │   ├── charge-density.old.dat
+    │   ├── C_pbe_v1.2.uspp.F.UPF
+    │   ├── data-file.xml
+    │   ├── f_pbe_v1.4.uspp.F.UPF
+    │   ├── H.pbe-rrkjus_psl.0.1.UPF
+    │   ├── K00001
+    │   │   └── eigenval.xml
+    │   ├── N.pbe.theos.UPF
+    │   ├── O.pbe-n-kjpaw_psl.0.1.UPF
+    │   └── paw.txt
+    ├── CO.update
+    ├── CO.wfc1
+    ├── CO.wfc10
+    ├── CO.wfc11
+    ├── CO.wfc12
+    ├── CO.wfc13
+    ├── CO.wfc14
+    ├── CO.wfc15
+    ├── CO.wfc16
+    ├── CO.wfc17
+    ├── CO.wfc18
+    ├── CO.wfc19
+    ├── CO.wfc2
+    ├── CO.wfc20
+    ├── CO.wfc21
+    ├── CO.wfc22
+    ├── CO.wfc23
+    ├── CO.wfc24
+    ├── CO.wfc25
+    ├── CO.wfc26
+    ├── CO.wfc27
+    ├── CO.wfc28
+    ├── CO.wfc29
+    ├── CO.wfc3
+    ├── CO.wfc30
+    ├── CO.wfc31
+    ├── CO.wfc32
+    ├── CO.wfc33
+    ├── CO.wfc34
+    ├── CO.wfc35
+    ├── CO.wfc36
+    ├── CO.wfc37
+    ├── CO.wfc38
+    ├── CO.wfc39
+    ├── CO.wfc4
+    ├── CO.wfc40
+    ├── CO.wfc41
+    ├── CO.wfc42
+    ├── CO.wfc43
+    ├── CO.wfc44
+    ├── CO.wfc45
+    ├── CO.wfc46
+    ├── CO.wfc47
+    ├── CO.wfc48
+    ├── CO.wfc49
+    ├── CO.wfc5
+    ├── CO.wfc50
+    ├── CO.wfc51
+    ├── CO.wfc52
+    ├── CO.wfc53
+    ├── CO.wfc54
+    ├── CO.wfc55
+    ├── CO.wfc56
+    ├── CO.wfc57
+    ├── CO.wfc58
+    ├── CO.wfc59
+    ├── CO.wfc6
+    ├── CO.wfc60
+    ├── CO.wfc61
+    ├── CO.wfc62
+    ├── CO.wfc63
+    ├── CO.wfc64
+    ├── CO.wfc7
+    ├── CO.wfc8
+    └── CO.wfc9
+
+3 directories, 79 files
+++ basename ./outputs/cod2222222-mpi-dplace.out
++ mv ./tmp-cod2222222-mpi-dplace-241907/cod2222222-mpi-dplace.out ./outputs/cod2222222-mpi-dplace.out
++ rm -rf ./tmp-cod2222222-mpi-dplace-241907
