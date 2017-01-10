@@ -19,7 +19,7 @@ test -z "${TMP_DIR}" && TMP_DIR="."
 TMP_DIR="${TMP_DIR}/tmp-${BASENAME}-$$"
 mkdir "${TMP_DIR}"
 
-PSEUDO_DIR=/home/andrius/SSSP_acc_PBE
+PSEUDO_DIR=../../../../pseudopotentials/SSSP_acc_PBE
 
 set -x
 
