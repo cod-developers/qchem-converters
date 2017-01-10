@@ -19,7 +19,7 @@ test -z "${TMP_DIR}" && TMP_DIR="."
 TMP_DIR="${TMP_DIR}/tmp-${BASENAME}-$$"
 mkdir "${TMP_DIR}"
 
-PSEUDO_DIR=/home/andrius/SSSP_acc_PBE
+PSEUDO_DIR=../../../../pseudopotentials/SSSP_acc_PBE
 
 set -x
 
@@ -98,7 +98,7 @@ cp ${OUTPUT_CTRL} ${TMP_DIR}
 
 (
     cd ${TMP_DIR}
-    mpirun -np 64 pw.x < $(basename ${OUTPUT_CTRL}) \
+    mpirun -np 64 dplace -c 0-63 pw.x < $(basename ${OUTPUT_CTRL}) \
         | tee $(basename ${OUTPUT_DAT})
 )
 

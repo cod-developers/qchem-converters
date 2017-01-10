@@ -1,8 +1,8 @@
 &CONTROL
   calculation  = "relax",
   prefix       = "CO",
-  pseudo_dir   = "/home/andrius/SSSP_acc_PBE",
-  outdir       = "./tmp-cod2222222-mpi-dplace-241907",
+  pseudo_dir   = "../../../../pseudopotentials/SSSP_acc_PBE",
+  outdir       = "./tmp-cod2222222-mpi-dplace-55546",
   nstep        = 1,
 /
 &SYSTEM
