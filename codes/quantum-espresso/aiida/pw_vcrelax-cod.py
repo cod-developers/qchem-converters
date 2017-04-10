@@ -252,7 +252,13 @@ for entry in [
     ]:
 
     r = codi.query(id=entry)
-    cif = r[0].get_cif_node(store=True)
+
+    cif = None
+    try:
+        cif = r[0].get_cif_node(store=True)
+    except StopIteration:
+        print('No entries found')
+        continue
 
     try:
         struct = cif._get_aiida_structure(store=True)
@@ -301,7 +307,7 @@ for entry in [
     calc.set_max_wallclock_seconds(max_seconds)
     # Valid only for Slurm and PBS (using default values for the
     # number_cpus_per_machine), change for SGE-like schedulers 
-    calc.set_resources({"num_machines": 1})
+    calc.set_resources({"num_machines": 1, "num_mpiprocs_per_machine": 1})
 
     if queue is not None:
         calc.set_queue_name(queue)
@@ -311,16 +317,10 @@ for entry in [
 
     from aiida.orm.querytool import QueryTool
     for e in elements:
-        fname = None
-        for name in sssp_names:
-            if name.lower().startswith("{}.".format(e.lower())):
-                fname = name
-            if name.lower().startswith("{}_".format(e.lower())):
-                fname = name
-
         q = QueryTool()
         q.set_class(UpfData)
-        q.add_attr_filter('filename', 'exact', fname)
+        q.set_group('SSSP')
+        q.add_attr_filter('element', 'exact', e)
         upf = q.run_query().next()
         calc.use_pseudo(upf, kind=e)
 
@@ -350,6 +350,9 @@ for entry in [
     except InputValidationError:
         pass
 
+import sys
+sys.exit()
+
 from aiida.tools.dbexporters.tcod import deposit
 import time
 
@@ -370,6 +373,5 @@ for pk in launched_calcs.keys():
             url="http://www.crystallography.net/tcod/cgi-bin/cif-deposit.pl",
             title='Relaxation of COD entry {} using '
                   'Quantum ESPRESSO and SSSP'.format(codid),
-            code_label='cif_cod_deposit_local',
-            computer_name='theospc11',
-            gzip=True)
+            code_label='cif_cod_deposit',
+            computer_name='localhost')
